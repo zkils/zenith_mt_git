@@ -1,7 +1,13 @@
 extends layout
 
 block content
+
   h1= title
-  p Welcome to #{title}
-  button#login(onclick="login()") userLoginTest
-  button#dbConn(onclick="conn()") DBTest
+  form(name="user", method="post",action="/users")
+    p UserName
+    input(type="text",name="userid")
+    p Password
+    input(type="text",name="password")
+    button(type="submit") Login
+
+
