@@ -8,8 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req,res){
-  var userInfo = {'id':req.body.userid, 'password':req.body.password};
-  console.log(req.body);
+  var userInfo = {'id':req.body.userId, 'password':req.body.userPassword};
   console.log(userInfo);
 
   var dbconn = require('../modules/DBconn.js');

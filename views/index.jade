@@ -2,12 +2,29 @@ extends layout
 
 block content
 
-  h1= title
-  form(name="user", method="post",action="/users")
-    p UserName
-    input(type="text",name="userid")
-    p Password
-    input(type="text",name="password")
-    button(type="submit") Login
+  .login_layout
+    h1
+      img(src="./images/login_title.png")
+    .login_wrapper
+      .login_back
+        span.login_logo
+         div
+           img(src="./images/logo_small.jpg")
+        .login_input
+          form(name="user", method="post",action="/users")
+            div
+             dl
+               dt ID
+                .circle
+               dd
+                input#txtId(type="text", name="userId")
+             dl
+               dt PASSWORD
+                .circle
+               dd
+                 input#txtPassword(type="text", name="userPassword")
+            span
+              a.btn_login(onclick="checklogin()")
+
 
 

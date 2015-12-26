@@ -1,11 +1,100 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height : 100%;
+  color : #333;
+  font: 12px "돋움", Dotum, 'AppleGothic';
+  line-height : 16px;
 }
 
-a {
-  color: #00B7FF;
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p{
+  margin: 0;
+  padding : 0;
 }
-h1{
-  color : #0000cc;
+
+div.login_layout{
+  position : absolute;
+  top : 50%;
+  left : 50%;
+  width : 598px;
+  height : 190px;
+  margin : -95px 0 0 -299px;
+}
+div.login_layout h1{
+  height : 20px;
+}
+
+div.login_wrapper{
+  width : 590px;
+  height : 142px;
+  border : 3px solid #dedede;
+  padding : 1px;
+}
+div.login_wrapper > div.login_back{
+  border : 1px solid #dedede;
+  width : 588px;
+  height : 140px;
+}
+div.login_wrapper > div.login_back > span.login_logo{
+  float : left;
+  width : 209px;
+  height : 140px;
+  background: url("../images/login_logobar.png") no-repeat top right;
+}
+div.login_wrapper > div.login_back > span.login_logo > div{
+  padding : 30px 0 0 5px;
+}
+
+div.login_wrapper > div.login_back > div.login_input{
+  float : left;
+  padding : 45px 0 0 13px;
+  width : 345px;
+}
+div.login_wrapper > div.login_back > div.login_input div{
+  float : left;
+  width : 260px;
+}
+div.login_wrapper > div.login_back > div.login_input div.circle{
+  width : 4px;
+  height : 4px;
+  background-color : #8d8d8d;
+  -webkit-border-radius:2px;
+  -moz-border-radius:2px;
+  border-radius:2px;
+  margin-top : 3px;
+  margin-left: -12px;
+}
+div.login_wrapper > div.login_back > div.login_input dl{
+  clear : left;
+  height : 30px;
+}
+div.login_wrapper > div.login_back > div.login_input dt{
+  float : left;
+  padding : 5px 0 0 15px;
+  font-weight: bold;
+  width : 84px;
+  color : #8d8d8d;
+  text-align: left;
+}
+div.login_wrapper > div.login_back > div.login_input dd{
+  float : left;
+  width : 152px;
+}
+div.login_wrapper > div.login_back > div.login_input dd input{
+  height : 17px;
+  padding : 3px 0 0 5px;
+  font : normal 9px dotum;
+  border : 1px solid #cecece;
+  color : #8d8d8d;
+}
+div.login_wrapper > div.login_back > div.login_input span{
+  float : left;
+  padding : 0 0 0 10px;
+}
+div.login_wrapper > div.login_back > div.login_input span > .btn_login{
+  display: block;
+  text-indent: -400px;
+  width : 70px;
+  height : 52px;
+  border : none;
+  cursor: pointer;
+  background: url("../images/btn_login.png") no-repeat top left;
 }
