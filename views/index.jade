@@ -2,12 +2,15 @@ extends layout
 
 block content
 
+
+
+
   h1= title
   form(name="user", method="post",action="/users")
     p UserName
     input(type="text",name="userid")
     p Password
-    input(type="text",name="password")
+    input(type="password",name="password")
     button(type="submit") Login
 
 
