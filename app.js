@@ -7,6 +7,13 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : '52.192.93.222',
+  user     : 'root',
+  password : 'Lion@123',
+  database:'zen_main'
+});
 
 var app = express();
 
