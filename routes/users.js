@@ -3,7 +3,7 @@ var router = express.Router();
 
 
 router.post('/', function(req,res){
-  var userInfo = {'id':req.body.userid, 'password':req.body.password};
+  var userInfo = {'id':req.body.userId, 'password':req.body.userPassword};
   var sqlResult;
   var tmpRes=res;
   if(userInfo.id=="" || userInfo.id==null) {
