@@ -4,11 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var session = require('express-session');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
+var main = require('./routes/main');
 
 var app = express();
 
@@ -25,11 +25,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(require('less-middleware')(path.join(__dirname, 'modules')));
+app.use(session({
+  genid: function(req) {
+    return null // use UUIDs for session IDs
+  },
+  secret: 'lion'
+}));
+app.use(require('flash')());
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/main', main);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
