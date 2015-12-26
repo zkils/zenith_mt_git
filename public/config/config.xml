@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <webConfig>
+        <IP>52.192.93.222</IP>
+        <DB>zen_main</DB>
+        <PASSWORD>Lion@123</PASSWORD>
+        <Port>3306</Port>
+    </webConfig>
