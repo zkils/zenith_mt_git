@@ -32,7 +32,11 @@ router.post('/', function(req,res){
           if (rows[0].password == userInfo.password) {
             req.session.userid = userInfo.id;
             req.session.username = rows[0].name;
+            req.session.password = userInfo.password;
             res.redirect("/main?username="+rows[0].name+"&userid="+userInfo.id);
+
+            console.log(req.session.password);
+
           } else {
             console.log("pwd unmatched");
             res.redirect("/?fail=true");

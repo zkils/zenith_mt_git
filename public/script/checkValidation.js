@@ -21,24 +21,27 @@ function checklogin(){
     }
 
     document.user.submit();
-}
+};
 
 
 function checkMt(){
 
 
     document.make_mt.submit();
-}
+};
 
 function updateMt(){
 
 
     document.update_mt.submit();
-}
+};
 
 function cancelMt(){
 
 
     document.cancel_mt.submit();
-}
+};
 
+function resetPassword(){
+    document.resetpassword.submit();
+};
