@@ -5,10 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
+var flash = require('express-flash');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var main = require('./routes/main');
+var manageMeeting = require('./routes/manageMeeting');
 
 var app = express();
 
@@ -26,16 +27,16 @@ app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  genid: function(req) {
-    return null // use UUIDs for session IDs
-  },
-  secret: 'lion'
+  resave: false,
+  saveUninitialized: true,
+  secret: 'Lion'
 }));
-app.use(require('flash')());
+app.use(flash());
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/main', main);
+app.use('/manageMeeting', manageMeeting);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
