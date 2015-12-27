@@ -8,23 +8,23 @@ router.post('/', function(req,res){
   var tmpRes=res;
   if(userInfo.id=="" || userInfo.id==null) {
     console.log("userID:" + userInfo.id + "|");
-    req.flash("info", "put id");
+    //req.flash("info", "put id");
     res.redirect('back');
     res.end();
   }else if(userInfo.password=="" || userInfo.password==null){
-    req.flash("info", "put password");
+    //req.flash("info", "put password");
     res.redirect('back');
     res.end();
   }else{
     var dbconn = require('../modules/DBconn.js');
-    dbconn.doQuery('select id, password from user where id = "'+userInfo.id+'"',function(rows){
-      console.log(rows);
-     // console.log(this);
-      //tmpRes.json(rows);
-
+    var strQuery = 'select id,name, AES_DECRYPT( UNHEX(password), "'+"Lion"+'") as password from user where id = "'+userInfo.id+'"';
+    dbconn.doQuery(strQuery,function(rows){
+      //console.log(rows);
       if(rows.length!=0){
         console.log("input pwd: "+userInfo.password + "\t db pwd: "+rows[0].password +"\t pwd");
         if(rows[0].password==userInfo.password){
+          req.session.userid=userInfo.id;
+          req.session.username=rows[0].name;
           tmpRes.redirect("/main");
         }else{
           console.log("pwd unmatched");

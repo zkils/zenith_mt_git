@@ -26,9 +26,8 @@ app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  genid: function(req) {
-    return null // use UUIDs for session IDs
-  },
+  resave: false,
+  saveUninitialized: true,
   secret: 'lion'
 }));
 app.use(require('flash')());
