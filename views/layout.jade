@@ -3,11 +3,15 @@ html(lang="ko")
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/oss/AXJ.min.css')
     block scripts
+      script(src='/oss/AXJ.min.js')
+      script(src="/oss/jquery-2.1.4.min.js")
       script(src='/script/checkValidation.js')
+      script(src='/script/common.js')
 
     meta(content="width=device-width,initial-scale=1,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi", name="viewport")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
 
-  body
+  body(onload="init()")
     block content

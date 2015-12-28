@@ -7,11 +7,11 @@ extends layout
 block content
 
     .content_title
-        img(src="./images/logo_small.jpg")
+        img(src="./images/logo_small.png")
         div
             p 사용팀 : Finance&nbsp;&nbsp;/&nbsp;&nbsp;
-                a 정보변경&nbsp;&nbsp;/&nbsp;&nbsp;
-                a 로그아웃
+                a#btnUser 정보변경&nbsp;&nbsp;/&nbsp;&nbsp;
+                a#btnLogout 로그아웃
     .content_detail
         .guide
             .info
@@ -262,3 +262,87 @@ block content
                             a
                         td.cur.time24.rm04
                             a
+    #registReservation.popup
+        .title 회의룸 예약 등록
+        table
+            tbody
+                tr
+                    th(scope="row")
+                        span 회의실
+                    td
+                tr
+                    th(scope="row")
+                        span 회의일자
+                    td
+                tr
+                    th(scope="row")
+                        span 회의시간
+                    td
+                tr
+                    th(scope="row")
+                        span 예약팀
+                    td
+                tr
+                    th(scope="row")
+                        span 예약자
+                    td
+                tr
+                    th(scope="row") 내선번호
+                    td
+        .btnGroup
+            input#btnRegistReservation(type="button")
+            input#btnCloseReservation(type="button")
+    #modifyReservation.popup
+        table
+            tbody
+                tr
+                    th(scope="row")
+                        span 회의실
+                    td
+                tr
+                    th(scope="row")
+                        span 회의일자
+                    td
+                tr
+                    th(scope="row")
+                        span 회의시간
+                    td
+                tr
+                    th(scope="row")
+                        span 예약일시
+                    td
+                tr
+                    th(scope="row")
+                        span 예약팀
+                    td
+                tr
+                    th(scope="row") 예약자
+                    td
+        .btnGroup
+            input#btnModifyReservation(type="button")
+            input#btnDeleteReservation(type="button")
+            input#btnOkReservation(type="button")
+    #modifyUser.popup
+        .title 팀 정보 변경
+        table
+            tbody
+                tr
+                    th(scope="row")
+                        span 기존 비밀번호
+                    td
+                tr
+                    th(scope="row")
+                        span 신규 비밀번호
+                    td
+                tr
+                    th(scope="row")
+                        span 비밀번호 확인
+                    td
+                tr
+                    th(scope="row")
+                        span 팀명
+                    td
+        .btnGroup
+            input#btnConfirmUser(type="button")
+            input#btnOkUser(type="button")
+    #mask
