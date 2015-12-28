@@ -4,6 +4,7 @@ function init(){
 
     $(".reservation td > a").on("click",function(){reservation.movePage($(this));});
     $("#btnUser").on("click", user.display);
+    calendar.init();
 };
 
 
@@ -38,6 +39,8 @@ var user = {
 var calendar = {
     init : function(){
 
-
+        $('#calendar').clndr({
+            template: $('#calendar-template').html()
+        });
     }
 }
