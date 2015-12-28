@@ -26,7 +26,7 @@ function getSchedule(res,req,date){
     if(date==null){
         date = getToDay();
     }
-    var sqlString = 'SELECT ID,FROM_TIME,TO_TIME,ROOM_ID,USER_ID,NAME,PHONE,INSERT_DATE FROM MT_SCHEDULE WHERE MT_DATE ="'+date+'"';
+    var sqlString = 'SELECT ID,MT_DATE,FROM_TIME,TO_TIME,ROOM_ID,USER_ID,NAME,PHONE,INSERT_DATE FROM MT_SCHEDULE WHERE MT_DATE ="'+date+'"';
     dbconn.pool.getConnection(function(err,connection){
         var query = connection.query(sqlString, function (err, rows) {
             if(err){
