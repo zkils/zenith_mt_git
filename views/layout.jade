@@ -4,8 +4,8 @@ html(lang="ko")
     title= title
 
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono', type='text/css')
-    link(rel='stylesheet', href='/stylesheets/clndr.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/clndr.css')
 
 
     block scripts
@@ -19,8 +19,11 @@ html(lang="ko")
       script(src='/script/common.js')
       script(src='/oss/clndr.js')
 
+
+
     meta(content="width=device-width,initial-scale=1,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,target-densitydpi=medium-dpi", name="viewport")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
 
   body(onload="init()")
     block content
+
