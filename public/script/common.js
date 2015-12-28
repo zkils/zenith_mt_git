@@ -53,3 +53,15 @@ var calendar = {
         });
     }
 }
+
+function setDayToCalendar(year,month,day){
+
+    var clndrInstanse = $('#calendar').clndr();
+    var eventArray = [
+        {
+            date: '2015-12-27', // year+'-'+month+'-'+day'
+            title: 'Single Day Event'
+        }
+    ];
+    clndrInstanse.setEvents(eventArray);
+};

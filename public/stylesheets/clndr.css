@@ -107,6 +107,7 @@ h5 {
   float: left;
   width: 25px;
   height: 25px;
+  cursor: pointer;
 }
 .clndr .clndr-grid .day.event {
   background-color: #B4E09F;
