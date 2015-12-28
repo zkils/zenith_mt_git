@@ -4,7 +4,8 @@ function init(){
 
     $(".reservation td > a").on("click",function(){reservation.movePage($(this));});
     $("#btnUser").on("click", user.display);
-    calendar.init();
+    //calendar.init();
+    $("#txtDate").on("click", calendar.init);
 };
 
 
@@ -40,7 +41,15 @@ var calendar = {
     init : function(){
 
         $('#calendar').clndr({
-            template: $('#calendar-template').html()
+            template: $('#calendar-template').html(),
+            events: [
+                { date: '2015-12-28' }
+            ],
+            clickEvents: {
+                click: function(target) {
+                    console.log(target);
+                }
+            }
         });
     }
 }
