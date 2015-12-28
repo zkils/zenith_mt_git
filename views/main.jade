@@ -1,10 +1,264 @@
 //
-   Created by 종원 on 2015-12-26.
+   Created by 혜미 on 2015-12-27.
 
 extends layout
 
 
 block content
 
-
-    h1= title
+    .content_title
+        img(src="./images/logo_small.jpg")
+        div
+            p 사용팀 : Finance&nbsp;&nbsp;/&nbsp;&nbsp;
+                a 정보변경&nbsp;&nbsp;/&nbsp;&nbsp;
+                a 로그아웃
+    .content_detail
+        .guide
+            .info
+                .title
+                    span 회의룸 예약
+                    span RESERVATION
+                .sub_title1 알아두세요
+                .sub_title2
+                    span 1
+                    span 이용방법
+                .msg 기본 30분 단위로 이용 가능합니다.
+                    | 예약된 셀을 클릭하시면 예약한 팀 및 회의 주제를 보실 수 있습니다.
+                    | 빈 셀을 클릭하시면 회의실 예약을 진행하실 수 있습니다.
+                    | 회의룸 예약을 수정하시려면 해당셀을 클릭 후 수정하시기 바랍니다.
+            .cal
+                span 일자검색&nbsp;&nbsp;:&nbsp;&nbsp;
+                input#txtDate(type="text")
+                input#btnDate(type="button")
+            .map
+                img(src="./images/room_info.png")
+        .reservation
+            table
+                thead
+                    tr
+                        th.title(scope="col")
+                        th.am(scope="col") 09:00 ~ 09:30
+                        th.am(scope="col") 09:30 ~ 10:00
+                        th.am(scope="col") 10:00 ~ 10:30
+                        th.am(scope="col") 10:30 ~ 11:00
+                        th.am(scope="col") 11:00 ~ 11:30
+                        th.am(scope="col") 11:30 ~ 12:00
+                        th.am(scope="col") 12:00 ~ 12:30
+                        th.pm(scope="col") 12:30 ~ 13:00
+                        th.pm(scope="col") 13:00 ~ 13:30
+                        th.pm(scope="col") 13:30 ~ 14:00
+                        th.pm(scope="col") 14:00 ~ 14:30
+                        th.pm(scope="col") 14:30 ~ 15:00
+                        th.pm(scope="col") 15:00 ~ 15:30
+                        th.pm(scope="col") 15:30 ~ 16:00
+                        th.pm(scope="col") 16:00 ~ 16:30
+                        th.pm(scope="col") 16:30 ~ 17:00
+                        th.pm(scope="col") 17:00 ~ 17:30
+                        th.pm(scope="col") 17:30 ~ 18:00
+                        th.pm(scope="col") 18:00 ~ 18:30
+                        th.pm(scope="col") 18:30 ~ 19:00
+                        th.pm(scope="col") 19:00 ~ 19:30
+                        th.pm(scope="col") 19:30 ~ 20:00
+                        th.pm(scope="col") 20:00 ~ 20:30
+                        th.pm(scope="col") 20:30 ~ 21:00
+                tbody
+                    tr
+                        td.room01 LEO
+                        td.cur.time01.rm01
+                            a
+                        td.cur.time02.rm01
+                            a
+                        td.cur.time03.rm01
+                            a
+                        td.cur.time04.rm01
+                            a
+                        td.cur.time05.rm01
+                            a
+                        td.cur.time06.rm01
+                            a
+                        td.cur.time07.rm01
+                            a
+                        td.cur.time08.rm01
+                            a
+                        td.cur.time09.rm01
+                            a
+                        td.cur.time10.rm01
+                            a
+                        td.cur.time11.rm01
+                            a
+                        td.cur.time12.rm01
+                            a
+                        td.cur.time13.rm01
+                            a
+                        td.cur.time14.rm01
+                            a
+                        td.cur.time15.rm01
+                            a
+                        td.cur.time16.rm01
+                            a
+                        td.cur.time17.rm01
+                            a
+                        td.cur.time18.rm01
+                            a
+                        td.cur.time19.rm01
+                            a
+                        td.cur.time20.rm01
+                            a
+                        td.cur.time21.rm01
+                            a
+                        td.cur.time22.rm01
+                            a
+                        td.cur.time23.rm01
+                            a
+                        td.cur.time24.rm01
+                            a
+                    tr
+                        td.room02 PM
+                        td.cur.time01.rm02
+                            a
+                        td.cur.time02.rm02
+                            a
+                        td.cur.time03.rm02
+                            a
+                        td.cur.time04.rm02
+                            a
+                        td.cur.time05.rm02
+                            a
+                        td.cur.time06.rm02
+                            a
+                        td.cur.time07.rm02
+                            a
+                        td.cur.time08.rm02
+                            a
+                        td.cur.time09.rm02
+                            a
+                        td.cur.time10.rm02
+                            a
+                        td.cur.time11.rm02
+                            a
+                        td.cur.time12.rm02
+                            a
+                        td.cur.time13.rm02
+                            a
+                        td.cur.time14.rm02
+                            a
+                        td.cur.time15.rm02
+                            a
+                        td.cur.time16.rm02
+                            a
+                        td.cur.time17.rm02
+                            a
+                        td.cur.time18.rm02
+                            a
+                        td.cur.time19.rm02
+                            a
+                        td.cur.time20.rm02
+                            a
+                        td.cur.time21.rm02
+                            a
+                        td.cur.time22.rm02
+                            a
+                        td.cur.time23.rm02
+                            a
+                        td.cur.time24.rm02
+                            a
+                    tr
+                        td.room03 Craftman
+                        td.cur.time01.rm03
+                            a
+                        td.cur.time02.rm03
+                            a
+                        td.cur.time03.rm03
+                            a
+                        td.cur.time04.rm03
+                            a
+                        td.cur.time05.rm03
+                            a
+                        td.cur.time06.rm03
+                            a
+                        td.cur.time07.rm03
+                            a
+                        td.cur.time08.rm03
+                            a
+                        td.cur.time09.rm03
+                            a
+                        td.cur.time10.rm03
+                            a
+                        td.cur.time11.rm03
+                            a
+                        td.cur.time12.rm03
+                            a
+                        td.cur.time13.rm03
+                            a
+                        td.cur.time14.rm03
+                            a
+                        td.cur.time15.rm03
+                            a
+                        td.cur.time16.rm03
+                            a
+                        td.cur.time17.rm03
+                            a
+                        td.cur.time18.rm03
+                            a
+                        td.cur.time19.rm03
+                            a
+                        td.cur.time20.rm03
+                            a
+                        td.cur.time21.rm03
+                            a
+                        td.cur.time22.rm03
+                            a
+                        td.cur.time23.rm03
+                            a
+                        td.cur.time24.rm03
+                            a
+                    tr
+                        td.room04 Child
+                        td.cur.time01.rm04
+                            a
+                        td.cur.time02.rm04
+                            a
+                        td.cur.time03.rm04
+                            a
+                        td.cur.time04.rm04
+                            a
+                        td.cur.time05.rm04
+                            a
+                        td.cur.time06.rm04
+                            a
+                        td.cur.time07.rm04
+                            a
+                        td.cur.time08.rm04
+                            a
+                        td.cur.time09.rm04
+                            a
+                        td.cur.time10.rm04
+                            a
+                        td.cur.time11.rm04
+                            a
+                        td.cur.time12.rm04
+                            a
+                        td.cur.time13.rm04
+                            a
+                        td.cur.time14.rm04
+                            a
+                        td.cur.time15.rm04
+                            a
+                        td.cur.time16.rm04
+                            a
+                        td.cur.time17.rm04
+                            a
+                        td.cur.time18.rm04
+                            a
+                        td.cur.time19.rm04
+                            a
+                        td.cur.time20.rm04
+                            a
+                        td.cur.time21.rm04
+                            a
+                        td.cur.time22.rm04
+                            a
+                        td.cur.time23.rm04
+                            a
+                        td.cur.time24.rm04
+                            a
