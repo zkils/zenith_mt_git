@@ -4,19 +4,19 @@ var router = express.Router();
 var dbconn = require('../modules/DBconn.js');
 
 /* GET home page. */
+
 router.get('/', function(req, res, next) {
-  console.log("-------------index start : get---------");
-  console.log("login fail : "+req.query.fail);
   res.render('index', { title: '회의실 예약 관리 시스템'  });
 });
 
 router.post('/', function(req,res){
   var userInfo = {'id':req.body.userId, 'password':req.body.userPassword};
   if(userInfo.id=="" || userInfo.id==null) {
-    console.log("userID:" + userInfo.id + "|");
+    console.log("userID nothing!");
     res.redirect('back');
     res.end();
   }else if(userInfo.password=="" || userInfo.password==null){
+    console.log("userPassword nothing!");
     res.redirect('back');
     res.end();
   }else{
@@ -28,21 +28,21 @@ router.post('/', function(req,res){
           throw err;
         }
         if(rows.length!=0) {
-          console.log("input pwd: " + userInfo.password + "\t db pwd: " + rows[0].password + "\t pwd");
+          console.log("success db conn");
           if (rows[0].password == userInfo.password) {
             req.session.userid = userInfo.id;
             req.session.username = rows[0].name;
             req.session.password = userInfo.password;
-            res.redirect("/main?username="+rows[0].name+"&userid="+userInfo.id);
-
-            console.log(req.session.password);
+            //res.redirect("/main?username="+rows[0].name+"&userid="+userInfo.id);
+            res.send(rows[0]);
 
           } else {
             console.log("pwd unmatched");
-            res.redirect("/?fail=true");
+            res.send();
           }
         }else{
-          res.redirect("/?fail=true");
+          console.log("id unmatched");
+          res.send();
         }
         connection.release();
       });

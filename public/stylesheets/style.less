@@ -169,6 +169,10 @@ div.login_wrapper > div.login_back > div.login_input span > .btn_login{
   cursor: pointer;
   background: url("../images/btn_login.png") no-repeat top left;
 }
+div.login_wrapper > div.login_back > div.login_input span#login_errMsg{
+  color : #f00;
+  display: none;
+}
 /*
   2015.12.27 혜미
 
@@ -428,13 +432,28 @@ div#modifyUser{
   top : 30%;
   left : 30%;
   width : 330px;
-  height : 220px;
+  height : 260px;
+}
+div#modifyUser > table{
+  width: 100%;
 }
 div#modifyUser > table tr td{
-  width : 282px;
+  padding-left: 10px;
+}
+div#modifyUser > table tr td input{
+  height: 17px;
+  padding: 3px 0px 0px 5px;
+  font : normal 9px/normal dotum;
+  border: 1px solid #cecece;
+  color : #8d8d8d;
+}
+div#modifyUser > span#user_errMsg{
+  display: inline-block;
+  height: 10px;
+  color : #ff0000;
 }
 div#modifyUser > .btnGroup{
-  padding-top: 10px;
+  padding: 20px 0 3px 0px;
 }
 div#modifyUser > .btnGroup > input#btnConfirmUser{
   background: url("../images/sp_widget.png") 0 -273px;
@@ -447,3 +466,11 @@ div#modifyUser > .btnGroup > input#btnOkUser{
 
   달력 CSS
 */
+div#calendar{
+  width : 177px;
+  hegith : 193px;
+  position : absolute;
+  top : 278px;
+  background-color: #fff;
+  left : 104px;
+}

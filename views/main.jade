@@ -330,18 +330,23 @@ block content
                     th(scope="row")
                         span 기존 비밀번호
                     td
+                        input#old_password(type="password")
                 tr
                     th(scope="row")
                         span 신규 비밀번호
                     td
+                        input#new_password1(type="password")
                 tr
                     th(scope="row")
-                        span 비밀번호 확인
+                        span#new_password2(type="password") 비밀번호 확인
                     td
+                        input(type="password")
                 tr
                     th(scope="row")
                         span 팀명
                     td
+                        input#new_username(type="text")
+        span#user_errMsg
         .btnGroup
             input#btnConfirmUser(type="button")
             input#btnOkUser(type="button")

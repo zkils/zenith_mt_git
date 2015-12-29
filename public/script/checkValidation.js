@@ -1,9 +1,8 @@
 function checklogin(){
     var id = document.getElementById("txtId"),
         password = document.getElementById("txtPassword"),
-        msg = "", guide1 = "필수항목 ", guide2 = " 입력하십시오.";
-
-    console.log("checklogin");
+        msg = "", guide1 = "필수항목 ", guide2 = " 입력하십시오.",
+        param = "";
 
     if(typeof id.value === "undefined" || id.value === undefined || id.value === ""){
         id.focus();
@@ -20,7 +19,24 @@ function checklogin(){
         return;
     }
 
-    document.user.submit();
+    param = "userId=" + id.value + "&userPassword=" + password.value;
+
+    $.ajax({
+        url: "/",
+        dataType: "json",
+        type: "post",
+        data : param,
+        success:successLogin,
+        error: failLogin
+    })
+
+};
+function successLogin(data, res){
+    //user.data = data;
+    window.location = "/main";
+};
+function failLogin(){
+    $("#login_errMsg").text("로그인 정보를 확인하여 주십시오.").show();
 };
 
 
