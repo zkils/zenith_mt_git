@@ -11,8 +11,26 @@ function init(){
 };
 function bindEvent(){
 
+    // 날짜지정 관련
+    $("#btnDate").on("click",function(){
+        $.ajax({
+            url: "/main",
+            dataType: "json",
+            type: "post",
+            data : "selectedDate=" + calendar.date.select,
+            success:function(data){console.log("get schedule of selected date success!!"); console.log(data)},
+            error: function(){console.log("get schedule of selected date success!!");}
+        })
+        //calendar.date.select
+    });
+    $("#txtDate").on("click", function(){
+        if(calendar.isExist()){
+            calendar.show();
+        }else{
+            calendar.init();
+        }
 
-    $("#txtDate").on("click", calendar.init);
+    } );
 
 }
 
@@ -26,11 +44,11 @@ var reservation = {
     },
     init : function(){
         $(".reservation td > a").on("click",function(){reservation.movePage($(this));});
-        reservation.selete();
+        reservation.select();
 
     },
-    selete : function(){
-        console.log("selete!!! client");
+    select : function(){
+        console.log("select!!! client");
         $.ajax({
             url: "/main",
             dataType: "json",
@@ -142,19 +160,44 @@ var calendar = {
     getCurrentDate : function(){
         return this.date.current;
     },
+    isExist:function(){
+        if($('#calendar').children().length==0){
+            return false;
+        }else{
+            return true;
+        }
+    },
+    show:function(){
+        $('#calendar').show();
+    },
+    setDayToCalendar:function(date) {
+
+        var clndrInstanse = $('#calendar').clndr();
+        var eventArray = [
+            {
+                date: date, // year+'-'+month+'-'+day'
+                title: 'Selected'
+            }
+        ];
+        clndrInstanse.setEvents(eventArray);
+    },
     init : function(){
         var cal = $('#calendar');
 
-        calendar.setCurrentDate();
+        //calendar.setCurrentDate();
 
         cal.clndr({
             template: $('#calendar-template').html(),
+            daysOfTheWeek: ['일', '월', '화', '수', '목', '금', '토'],
             events: [
-                { date: '2015-12-28' }
+                { date: getToDay() }
             ],
             clickEvents: {
                 click: function(target) {
                     calendar.date.select = target.date._i;
+                    $("#txtDate").val(calendar.date.select);
+                    calendar.setDayToCalendar(calendar.date.select);
+
                     cal.hide();
                 }
             }
@@ -162,23 +205,17 @@ var calendar = {
     }
 };
 
+function getToDay(){
+    var date = new Date();
+    var today = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString()+"-"+date.getDate().toString();
+    return today;
+};
+
 var common = {
     isEmpty : function(val){
         return (typeof val === "undefined" || val === undefined || val === "")? true : false;
     }
 };
-function setDayToCalendar(year,month,day){
-
-    var clndrInstanse = $('#calendar').clndr();
-    var eventArray = [
-        {
-            date: '2015-12-27', // year+'-'+month+'-'+day'
-            title: 'Single Day Event'
-        }
-    ];
-    clndrInstanse.setEvents(eventArray);
-};
-
 
 function decodeSession(){
     var sessionStr = $('#hssession').val();

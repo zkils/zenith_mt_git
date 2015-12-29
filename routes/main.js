@@ -7,18 +7,22 @@ var dbconn = require('../modules/DBconn.js');
 router.get('/', function(req, res, next) {
     console.log(req.query.userid);
     getSchedule(res,req);
-    console.log("------------ start main -----------");
 });
 
 
 router.post('/', function(req, res, next) {
-    console.log("----main post");
+
+    getSchedule(res,req,req.body.selectedDate);
     //res.render('main', { title: '회의실 예약 관리 시스템',username: req.session.username, userid: req.session.userid  });
 });
 
+function replaceDate(str) {
+    return replacer()
+
+};
 function getToDay(){
     var date = new Date();
-    var today = date.getFullYear().toString()+(date.getMonth()+1).toString()+date.getDate().toString();
+    var today = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString()+"-"+date.getDate().toString();
     return today;
 };
 
@@ -33,7 +37,8 @@ function getSchedule(res,req,date){
                 connection.release();
                 throw err;
             }
-            res.render('main', { username: req.session.username, userid: req.session.userid ,mtSchedule:rows });
+                //res.send({ username: req.session.username, userid: req.session.userid ,mtSchedule:rows });
+                res.render('main', {username: req.session.username, userid: req.session.userid, mtSchedule: rows});
             console.log(rows);
             connection.release();
         });
