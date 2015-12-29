@@ -28,7 +28,6 @@ router.post('/', function(req,res){
           throw err;
         }
         if(rows.length!=0) {
-          console.log("success db conn");
           if (rows[0].password == userInfo.password) {
             req.session.userid = userInfo.id;
             req.session.username = rows[0].name;

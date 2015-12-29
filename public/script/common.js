@@ -40,7 +40,7 @@ var user = {
     data : {},
     init : function(){
         $("#btnUser").on("click", this.display);
-        $("#btnConfirmUser").on("click", this.update)
+        $("#btnConfirmUser").on("click", this.update);
         $("#btnOkUser").on("click", this.hide);
     },
     display : function(){
@@ -53,14 +53,21 @@ var user = {
     },
     update : function(){
         user.getData();
-        console.log(user.checkValue());
+
         if(!user.checkValue()) return;
 
+        var param = "userId=" + user.data.newPassword1 +
+                    "&org_password=" + user.data.oldPassword +
+                    "&new_password=" + user.data.newPassword1 +
+                    "&new_username=" + user.data.username ;
+
+
+        console.log(param);
         $.ajax({
-            url: "/user",
+            url: "/users",
             dataType: "json",
             type: "post",
-            data : "",
+            data : param,
             success:function(){console.log("success!!");},
             error: function(){console.log("fail!!");}
         })
