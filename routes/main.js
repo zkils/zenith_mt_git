@@ -37,8 +37,8 @@ function getSchedule(res,req,date){
                 connection.release();
                 throw err;
             }
-                //res.send({ username: req.session.username, userid: req.session.userid ,mtSchedule:rows });
-                res.render('main', {username: req.session.username, userid: req.session.userid, mtSchedule: rows});
+            //res.send({ username: req.session.username, userid: req.session.userid ,mtSchedule:rows });
+            res.render('main', {username: req.session.username, userid: req.session.userid, mtSchedule: rows});
             console.log(rows);
             connection.release();
         });
