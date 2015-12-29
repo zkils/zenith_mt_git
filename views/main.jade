@@ -345,7 +345,7 @@ block content
                     th(scope="row")
                         span 팀명
                     td
-                        input#new_username(type="text")
+                        input#new_username(type="text" value="#{session.username}")
         span#user_errMsg
         .btnGroup
             input#btnConfirmUser(type="button")
@@ -373,5 +373,4 @@ block content
         </div>
         <div class="clndr-today-button">Today</div>
 
-
-
+    input#hssession(type="hidden" value="#{session.userinfo}")

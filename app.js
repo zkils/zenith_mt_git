@@ -10,7 +10,6 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var main = require('./routes/main');
 var manageMeeting = require('./routes/manageMeeting');
-
 var app = express();
 
 
@@ -32,6 +31,10 @@ app.use(session({
   secret: 'Lion'
 }));
 app.use(flash());
+app.use(function(req,res,next){
+  res.locals.session = req.session;
+  next();
+});
 
 app.use('/', routes);
 app.use('/users', users);

@@ -29,6 +29,7 @@ router.post('/', function(req,res){
         }
         if(rows.length!=0) {
           if (rows[0].password == userInfo.password) {
+            req.session.userinfo = encodeURIComponent( JSON.stringify( {"id":userInfo.id, "name":rows[0].name,"password":userInfo.password} ));
             req.session.userid = userInfo.id;
             req.session.username = rows[0].name;
             req.session.password = userInfo.password;

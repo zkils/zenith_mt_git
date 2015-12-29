@@ -164,3 +164,10 @@ function setDayToCalendar(year,month,day){
     ];
     clndrInstanse.setEvents(eventArray);
 };
+
+
+function decodeSession(){
+    var sessionStr = $('#hssession').val();
+    var data = JSON.parse(decodeURIComponent( sessionStr ));
+    return data;
+};
