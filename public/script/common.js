@@ -2,13 +2,15 @@ function init(){
     if($(".login_wrapper").length === 0) $(document.body).addClass("main");
     else $(document.body).removeClass("main");
 
+    reservation.init();
     user.init();
+
     //calendar.init();
     bindEvent();
 
 };
 function bindEvent(){
-    $(".reservation td > a").on("click",function(){reservation.movePage($(this));});
+
 
     $("#txtDate").on("click", calendar.init);
 
@@ -21,6 +23,22 @@ var reservation = {
     data : {
 
         // DB data binding
+    },
+    init : function(){
+        $(".reservation td > a").on("click",function(){reservation.movePage($(this));});
+        reservation.selete();
+
+    },
+    selete : function(){
+        console.log("selete!!! client");
+        $.ajax({
+            url: "/main",
+            dataType: "json",
+            type: "post",
+            //data : param,
+            success:function(){console.log("reservation success!!");},
+            error: function(){console.log("reservation fail!!");}
+        })
     },
     movePage : function(obj){
         var that = obj, _offset = that.offset();
@@ -50,6 +68,7 @@ var user = {
     hide : function(){
         $("#modifyUser").hide();
         $("#mask").hide();
+        this.resetData();
     },
     update : function(){
         user.getData();
@@ -61,19 +80,14 @@ var user = {
                     "&new_password=" + user.data.newPassword1 +
                     "&new_username=" + user.data.username ;
 
-
-        console.log(param);
         $.ajax({
             url: "/users",
             dataType: "json",
             type: "post",
             data : param,
-            success:function(){console.log("success!!");},
-            error: function(){console.log("fail!!");}
+            success:function(){console.log("user update success!!");},
+            error: function(){console.log("user update fail!!");}
         })
-
-        user.resetData();
-
     },
     getData : function(){
         this.data.oldPassword = $("#old_password").val();
