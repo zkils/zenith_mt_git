@@ -157,7 +157,13 @@ var reservation = {
         $("#btnModifyReservation").hide();
         $("#btnDeleteReservation").hide();
 
-        getRowData($timecell);
+        var reserveData = getRowData($timecell);
+        $("#reserved-room").text(reserveData.ROOMNAME);
+        $("#reserved-day").text(reserveData.MT_DATE);
+        $("#meeting-time").text(getDisplayTimeString(reserveData.FROM_TIME , reserveData.TO_TIME)); // xx:xx ~ xx: xx 로 고칠것
+        $("#reserved-time").text(reserveData.INSERT_DATE);
+        $("#reserved-team").text(reserveData.USERNAME); // 쿼리 변경 후 user name으로 할 것
+        $("#reserved-person-phone").text(reserveData.NAME +" (내선번호 : "+reserveData.PHONE+")");
 
         reservation.movePage($timecell, $popup);
     }
@@ -170,20 +176,15 @@ function getRowData($timecell){
     for(var i= 0 ; i < rows.length ; i++){
       if(roomId==rows[i].ROOM_ID && fromTimeString==rows[i].FROM_TIME){
           console.log("----reservation date matched----");
-          var reserveData = rows[i];
-          $("#reserved-room").text(reserveData.ROOMNAME);
-          $("#reserved-day").text(reserveData.MT_DATE);
-          $("#meeting-time").text(getDisplayTimeString(reserveData.FROM_TIME , reserveData.TO_TIME)); // xx:xx ~ xx: xx 로 고칠것
-          $("#reserved-time").text(reserveData.INSERT_DATE);
-          $("#reserved-team").text(reserveData.USERNAME); // 쿼리 변경 후 user name으로 할 것
-          $("#reserved-person-phone").text(reserveData.NAME +" (내선번호 : "+reserveData.PHONE+")");
+          return rows[i];
+
           break;
       }
     };
 
 };
 
-function getRoomId($timecell){
+function getRoomId($timecell){  //gkem
     return $timecell.siblings().first().text();
 
     //var index = $timecell.parnet().index();
