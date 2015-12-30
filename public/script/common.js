@@ -37,7 +37,9 @@ function bindEvent(){
         }
 
     } );
-
+    $("#btnOkReservation").on("click",function(){
+        $("#modifyReservation").hide();
+    })
 }
 
 
@@ -49,7 +51,10 @@ var reservation = {
         // DB data binding
     },
     init : function(){
-        $(".reservation td > a").on("click",function(){reservation.movePage($(this));});
+        $(".reservation td > a").on("click",function(){
+            reservation.makeReservation($(this));
+            //reservation.movePage($(this));
+        });
         reservation.select();
         if($(document.body).hasClass('main')) {
             if (rows.length != 0) {
@@ -61,9 +66,17 @@ var reservation = {
     reset: function(){
         $(".reserved-mine").each(function(){
             $(this).removeClass("reserved-mine");
+            $(this).children('a').off('click').on("click",function(){
+                reservation.makeReservation($(this).parent());
+                //reservation.movePage($(this));
+            });
         });
         $(".reserved-other").each(function(){
             $(this).removeClass("reserved-other");
+            $(this).children('a').off('click').on("click",function(){
+                reservation.makeReservation($(this).parent());
+                //reservation.movePage($(this));
+            });
         });
         if(rows.length!=0){
             reservation.drawReservation();
@@ -81,17 +94,20 @@ var reservation = {
             error: function(){console.log("reservation fail!!");}
         })
     },
-    movePage : function(obj){
+    movePage : function(obj,$popup){
         var that = obj, _offset = that.offset();
         console.log(that.offset());
+
+        //To-do 화면 크기와 항목 위치에 따라 포지션 변경되어야 함
+
         // open registReservation
         //$("#mask").show();
         //$("#registReservation").show();
 
         // open modifyReservation
-        $("#btnModify").hide();
-        $("#btnDelete").hide();
-        $("#modifyReservation").css({top : _offset.top + 8, left : _offset.left + 8}).show();
+        //$("#btnModify").hide();
+        //$("#btnDelete").hide();
+        $popup.css({top : _offset.top + 8, left : _offset.left + 8}).show();
 
     },
     drawReservation : function(){
@@ -108,16 +124,102 @@ var reservation = {
                 var $timecell = $timeCells.eq(j);
                 if(userID==userInfo.userid){
                     $timecell.addClass('reserved-mine');
+                    $timecell.children('a').off('click').on('click',function(){
+                        reservation.modifyReservation($(this).parent());
+                    });
                 }else{
-                    $timecell.addClass('reserved-other');
+                    $timecell.addClass('reserved-other')
+                    $timecell.children('a').off('click').on('click',function(){
+                        reservation.showReservation($(this).parent());
+                    });
                 }
 
             }
 
 
         }
+    },
+    makeReservation : function($timecell){
+        var $popup = $("#registReservation");
+        $popup.show();
+        $mask.show();
+
+    },
+    modifyReservation : function($timecell){
+        var $popup = $("#modifyReservation");
+        $("#btnModifyReservation").show();
+        $("#btnDeleteReservation").show();
+
+        reservation.movePage($timecell, $popup);
+    },
+    showReservation : function($timecell){
+        var $popup = $("#modifyReservation");
+        $("#btnModifyReservation").hide();
+        $("#btnDeleteReservation").hide();
+
+        getRowData($timecell);
+
+        reservation.movePage($timecell, $popup);
     }
-}
+};
+
+function getRowData($timecell){
+    var timeIndex = $timecell.index();
+    var fromTimeString = getTimeString(timeIndex); // form date
+    var roomId = getRoomId($timecell);
+    for(var i= 0 ; i < rows.length ; i++){
+      if(roomId==rows[i].ROOM_ID && fromTimeString==rows[i].FROM_TIME){
+          console.log("----reservation date matched----");
+          var reserveData = rows[i];
+          $("#reserved-room").text(reserveData.ROOMNAME);
+          $("#reserved-day").text(reserveData.MT_DATE);
+          $("#meeting-time").text(getDisplayTimeString(reserveData.FROM_TIME , reserveData.TO_TIME)); // xx:xx ~ xx: xx 로 고칠것
+          $("#reserved-time").text(reserveData.INSERT_DATE);
+          $("#reserved-team").text(reserveData.USERNAME); // 쿼리 변경 후 user name으로 할 것
+          $("#reserved-person-phone").text(reserveData.NAME +" (내선번호 : "+reserveData.PHONE+")");
+          break;
+      }
+    };
+
+};
+
+function getRoomId($timecell){
+    return $timecell.siblings().first().text();
+
+    //var index = $timecell.parnet().index();
+    //switch(index){
+    //    case 0:
+    //        return "BLACK";
+    //        break;
+    //    case 1:
+    //        return "YELLOW";
+    //        break;
+    //    case 2:
+    //        return "BLUE";
+    //        break;
+    //    case 3:
+    //        return "ORANGE";
+    //        break;
+    //
+    //}
+
+};
+
+function getTimeString(timeIndex){
+    var str,isEven=false;
+    if(timeIndex%2==0) isEven=true;
+
+    str = Math.floor((timeIndex/2+9)).toString() + ((isEven)? '30' : '00' );
+    (str.length==3) ? str= '0'+str : str;
+
+    return str;
+};
+
+function getDisplayTimeString(fromTime,toTime){
+    return fromTime.substring(0,2)+":"+fromTime.substring(2,4)+" ~ "+ toTime.substring(0,2)+":"+toTime.substring(2,4);
+
+};
+
 function getRoomClassId(roomid){
     var roomClass = ['room01','room02','room03','room04' ];
     switch(roomid){

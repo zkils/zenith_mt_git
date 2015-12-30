@@ -281,7 +281,7 @@ block content
                 tr
                     th(scope="row")
                         span 예약팀
-                    td #{session.username}
+                    td
                 tr
                     th(scope="row")
                         span 예약자
@@ -298,26 +298,26 @@ block content
                 tr
                     th(scope="row")
                         span 회의실
-                    td
+                    td#reserved-room
                 tr
                     th(scope="row")
                         span 회의일자
-                    td
+                    td#reserved-day
                 tr
                     th(scope="row")
                         span 회의시간
-                    td
+                    td#meeting-time
                 tr
                     th(scope="row")
                         span 예약일시
-                    td
+                    td#reserved-time
                 tr
                     th(scope="row")
                         span 예약팀
-                    td #{session.username}
+                    td#reserved-team
                 tr
                     th(scope="row") 예약자
-                    td
+                    td#reserved-person-phone
         .btnGroup
             input#btnModifyReservation(type="button")
             input#btnDeleteReservation(type="button")
