@@ -1,15 +1,14 @@
 function init(){
     if($(".login_wrapper").length === 0){
         $(document.body).addClass("main");
+        reservation.init();
+        user.init();
+        bindEvent();
     }else{
         $(document.body).removeClass("main");
     }
 
-    reservation.init();
-    user.init();
 
-    //calendar.init();
-    bindEvent();
 
 };
 function bindEvent(){
@@ -23,6 +22,7 @@ function bindEvent(){
             data : "selectedDate=" + calendar.date.select,
             success:function(data){
                 console.log("get schedule of selected date success!!");
+                rows=data.rData;
                 reservation.reset();
             },
             error: function(){console.log("get schedule of selected date success!!");}
@@ -59,8 +59,12 @@ var reservation = {
 
     },
     reset: function(){
-        $(".reserved-mine").removeClass(".reserved-mine");
-        $(".reserved-other").removeClass(".reserved-other");
+        $(".reserved-mine").each(function(){
+            $(this).removeClass("reserved-mine");
+        });
+        $(".reserved-other").each(function(){
+            $(this).removeClass("reserved-other");
+        });
         if(rows.length!=0){
             reservation.drawReservation();
         }
