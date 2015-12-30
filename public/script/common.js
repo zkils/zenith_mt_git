@@ -1,6 +1,9 @@
 function init(){
-    if($(".login_wrapper").length === 0) $(document.body).addClass("main");
-    else $(document.body).removeClass("main");
+    if($(".login_wrapper").length === 0){
+        $(document.body).addClass("main");
+    }else{
+        $(document.body).removeClass("main");
+    }
 
     reservation.init();
     user.init();
@@ -18,7 +21,10 @@ function bindEvent(){
             dataType: "json",
             type: "post",
             data : "selectedDate=" + calendar.date.select,
-            success:function(data){console.log("get schedule of selected date success!!"); console.log(data)},
+            success:function(data){
+                console.log("get schedule of selected date success!!");
+                reservation.reset();
+            },
             error: function(){console.log("get schedule of selected date success!!");}
         })
         //calendar.date.select
@@ -45,6 +51,19 @@ var reservation = {
     init : function(){
         $(".reservation td > a").on("click",function(){reservation.movePage($(this));});
         reservation.select();
+        if($(document.body).hasClass('main')) {
+            if (rows.length != 0) {
+                reservation.drawReservation();
+            }
+        }
+
+    },
+    reset: function(){
+        $(".reserved-mine").removeClass(".reserved-mine");
+        $(".reserved-other").removeClass(".reserved-other");
+        if(rows.length!=0){
+            reservation.drawReservation();
+        }
 
     },
     select : function(){
@@ -70,8 +89,52 @@ var reservation = {
         $("#btnDelete").hide();
         $("#modifyReservation").css({top : _offset.top + 8, left : _offset.left + 8}).show();
 
+    },
+    drawReservation : function(){
+        console.log("draw reservation");
+        var $timeCells;
+        for( var i = 0 ; i < rows.length ;i++){
+            var row = rows[i];
+            var roomClass = getRoomClassId(row.ROOM_ID);
+            var userID = row.USER_ID;
+            $timeCells = $("."+roomClass).siblings();
+            var fromTimeIndex = getReservedTimeIndex(row.FROM_TIME);
+            var toTimeIndex = getReservedTimeIndex(row.TO_TIME);
+            for( var j = fromTimeIndex; j < toTimeIndex ; j++){
+                var $timecell = $timeCells.eq(j);
+                if(userID==userInfo.userid){
+                    $timecell.addClass('reserved-mine');
+                }else{
+                    $timecell.addClass('reserved-other');
+                }
+
+            }
+
+
+        }
     }
 }
+function getRoomClassId(roomid){
+    var roomClass = ['room01','room02','room03','room04' ];
+    switch(roomid){
+        case 'BLACK':
+            return roomClass[0];
+        case 'YELLOW':
+            return roomClass[1];
+        case 'BLUE':
+            return roomClass[2];
+        case 'ORANGE':
+            return roomClass[3];
+
+    }
+};
+function getReservedTimeIndex(time){
+    var hour =  parseInt(time.substr(0,2));
+    var min = parseInt(time.substr(2,4)) ;
+
+    return (hour-9)*2 + (( min == 00) ? 0 : 1);
+};
+
 var user = {
     data : {},
     init : function(){

@@ -281,7 +281,7 @@ block content
                 tr
                     th(scope="row")
                         span 예약팀
-                    td
+                    td #{session.username}
                 tr
                     th(scope="row")
                         span 예약자
@@ -314,7 +314,7 @@ block content
                 tr
                     th(scope="row")
                         span 예약팀
-                    td
+                    td #{session.username}
                 tr
                     th(scope="row") 예약자
                     td
@@ -374,3 +374,7 @@ block content
         <div class="clndr-today-button">Today</div>
 
     input#hssession(type="hidden" value="#{session.userinfo}")
+
+    script(type="text/javascript").
+        var rows = !{JSON.stringify(rData)}
+        var userInfo = !{JSON.stringify(userInfo)}
