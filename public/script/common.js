@@ -76,14 +76,166 @@ function bindEvent(){
 
 var reservation = {
     data : {
+        ROOM : {
+            BLACK : {id : "rm01",
+                time : [
+                    {FROM :"09:00", isReservation : false},
+                    {FROM :"09:30", isReservation : false},
+                    {FROM :"10:00", isReservation : false},
+                    {FROM :"10:30", isReservation : false},
+                    {FROM :"11:00", isReservation : false},
+                    {FROM :"11:30", isReservation : false},
+                    {FROM :"12:00", isReservation : false},
+                    {FROM :"12:30", isReservation : false},
+                    {FROM :"13:00", isReservation : false},
+                    {FROM :"13:30", isReservation : false},
+                    {FROM :"14:00", isReservation : false},
+                    {FROM :"14:30", isReservation : false},
+                    {FROM :"15:00", isReservation : false},
+                    {FROM :"15:30", isReservation : false},
+                    {FROM :"16:00", isReservation : false},
+                    {FROM :"16:30", isReservation : false},
+                    {FROM :"17:00", isReservation : false},
+                    {FROM :"17:30", isReservation : false},
+                    {FROM :"18:00", isReservation : false},
+                    {FROM :"18:30", isReservation : false},
+                    {FROM :"19:00", isReservation : false},
+                    {FROM :"19:30", isReservation : false},
+                    {FROM :"20:00", isReservation : false},
+                    {FROM :"20:30", isReservation : false}
+                ]
+            },
+            YELLOW : {id : "rm02",
+                time : [
+                    {FROM :"09:00", isReservation : false},
+                    {FROM :"09:30", isReservation : false},
+                    {FROM :"10:00", isReservation : false},
+                    {FROM :"10:30", isReservation : false},
+                    {FROM :"11:00", isReservation : false},
+                    {FROM :"11:30", isReservation : false},
+                    {FROM :"12:00", isReservation : false},
+                    {FROM :"12:30", isReservation : false},
+                    {FROM :"13:00", isReservation : false},
+                    {FROM :"13:30", isReservation : false},
+                    {FROM :"14:00", isReservation : false},
+                    {FROM :"14:30", isReservation : false},
+                    {FROM :"15:00", isReservation : false},
+                    {FROM :"15:30", isReservation : false},
+                    {FROM :"16:00", isReservation : false},
+                    {FROM :"16:30", isReservation : false},
+                    {FROM :"17:00", isReservation : false},
+                    {FROM :"17:30", isReservation : false},
+                    {FROM :"18:00", isReservation : false},
+                    {FROM :"18:30", isReservation : false},
+                    {FROM :"19:00", isReservation : false},
+                    {FROM :"19:30", isReservation : false},
+                    {FROM :"20:00", isReservation : false},
+                    {FROM :"20:30", isReservation : false}
+                ]
+            },
+            BLUE : {id : "rm03",
+                time : [
+                    {FROM :"09:00", isReservation : false},
+                    {FROM :"09:30", isReservation : false},
+                    {FROM :"10:00", isReservation : false},
+                    {FROM :"10:30", isReservation : false},
+                    {FROM :"11:00", isReservation : false},
+                    {FROM :"11:30", isReservation : false},
+                    {FROM :"12:00", isReservation : false},
+                    {FROM :"12:30", isReservation : false},
+                    {FROM :"13:00", isReservation : false},
+                    {FROM :"13:30", isReservation : false},
+                    {FROM :"14:00", isReservation : false},
+                    {FROM :"14:30", isReservation : false},
+                    {FROM :"15:00", isReservation : false},
+                    {FROM :"15:30", isReservation : false},
+                    {FROM :"16:00", isReservation : false},
+                    {FROM :"16:30", isReservation : false},
+                    {FROM :"17:00", isReservation : false},
+                    {FROM :"17:30", isReservation : false},
+                    {FROM :"18:00", isReservation : false},
+                    {FROM :"18:30", isReservation : false},
+                    {FROM :"19:00", isReservation : false},
+                    {FROM :"19:30", isReservation : false},
+                    {FROM :"20:00", isReservation : false},
+                    {FROM :"20:30", isReservation : false}
+                ]
+            },
+            ORANGE : {id : "rm04",
+                time : [
+                    {FROM :"09:00", isReservation : false},
+                    {FROM :"09:30", isReservation : false},
+                    {FROM :"10:00", isReservation : false},
+                    {FROM :"10:30", isReservation : false},
+                    {FROM :"11:00", isReservation : false},
+                    {FROM :"11:30", isReservation : false},
+                    {FROM :"12:00", isReservation : false},
+                    {FROM :"12:30", isReservation : false},
+                    {FROM :"13:00", isReservation : false},
+                    {FROM :"13:30", isReservation : false},
+                    {FROM :"14:00", isReservation : false},
+                    {FROM :"14:30", isReservation : false},
+                    {FROM :"15:00", isReservation : false},
+                    {FROM :"15:30", isReservation : false},
+                    {FROM :"16:00", isReservation : false},
+                    {FROM :"16:30", isReservation : false},
+                    {FROM :"17:00", isReservation : false},
+                    {FROM :"17:30", isReservation : false},
+                    {FROM :"18:00", isReservation : false},
+                    {FROM :"18:30", isReservation : false},
+                    {FROM :"19:00", isReservation : false},
+                    {FROM :"19:30", isReservation : false},
+                    {FROM :"20:00", isReservation : false},
+                    {FROM :"20:30", isReservation : false}
+                ]
+            }
+        },
+        binding : function(){
+            var time, from;
+            for(var i = 0; i < rows.length ; i++){
+                time = this.ROOM[rows[i].ROOM_ID].time;
 
-        // DB data binding
+                for(var j = 0; j < time.length; j++){
+                    from = time[j].FROM.replace(":", "");
+
+                    if(from == rows[i].FROM_TIME) {
+                        while (time[j].FROM.replace(":", "") !== rows[i].TO_TIME) {
+                            time[j].isReservation = true;
+                            j++;
+                        }
+                    }
+
+                };
+
+            }
+        },
+        reset : function(){
+            for(var i in this.ROOM){
+                for(var i in this.ROOM[i].time){
+                    this.ROOM[i].time[j].isReservation = false;
+                }
+            }
+        },
+        getToTime : function(room,fromTimeId){
+            var time = this.ROOM[room].time, result = [];
+            for(var i = (fromTimeId + 1); i < time.length; i++){
+                if(!time[i].isReservation){
+                    result.push(time[i].FROM);
+                }else{
+                    break;
+                }
+            }
+            return result;
+        }
     },
     init : function(){
+        this.data.binding();
         $(".reservation td > a").on("click",function(){
             reservation.makeReservation($(this));
             //reservation.movePage($(this));
         });
+        $("#btnRegistReservation").on("click", reservation.insert);
+
         reservation.select();
         if (rows.length != 0) {
             reservation.drawReservation();
@@ -119,6 +271,33 @@ var reservation = {
             success:function(){console.log("reservation success!!");},
             error: function(){console.log("reservation fail!!");}
         })
+    },
+    insert : function(){
+        var room = $("#registRoom").text(),
+            date = $("#registDate").text().replace(/-/gi, ''),
+            fromTime = $("#registFromTime").text().replace(' ~ ', '').replace(':',''),
+            toTime = $("#registToTime option:selected").text().replace(':', ''),
+            userName = $("#registUserName").text(),
+            registName = $("#registName").text(),
+            phone = $("#registPhone").text(),
+            param = "day=" + date +
+                    "&fromtime=" + fromTime +
+                    "&totime=" + toTime +
+                    "&rooid=" + room +
+                    "&userid=" + userName +
+                    "&name=" + name +
+                    "&number=" + phone +
+                    "&action=insertMt";
+
+        $.ajax({
+            url : '/manageMeeting',
+            dataType : "json",
+            type : "post",
+            data : param,
+            success : function(){console.log("success insert");},
+            error : function(){console.log("fail insert")}
+        })
+
     },
     movePage : function(obj,$popup){
         var that = obj, _offset = that.offset();
@@ -166,10 +345,29 @@ var reservation = {
         }
     },
     makeReservation : function($timecell){
-        var $popup = $("#registReservation");
-        $popup.show();
-        $mask.show();
+        var parentNode = $timecell.parents('td');
+            room = getRoomId(parentNode),
+            timeId = parseInt(parentNode[0].className.match(/time../)[0].substr(-2)) - 1,
+            fromTime = this.data.ROOM[room].time[timeId].FROM,
+            toTime = this.data.getToTime(room, timeId),
+            strOption = '';
 
+            for(var i = 0; i < toTime.length; i++){
+                if(i == 0){
+                    strOption = "<option selected>" + toTime[i] + "</option>"
+                }
+                strOption += "<option>" + toTime[i] + "</option>"
+            }
+
+
+        $("#registRoom").text(room);
+        $("#registDate").text(getToDay());
+        $("#registFromTime").text(fromTime + " ~ ");
+        $("#registToTime").append(strOption);
+
+
+        $("#registReservation").show();
+        $("#mask").show();
     },
     modifyReservation : function($timecell){
         var $popup = $("#modifyReservation");
