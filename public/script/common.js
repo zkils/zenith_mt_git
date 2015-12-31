@@ -89,6 +89,10 @@ function bindEvent(){
         rows = null;
         window.location = "/";
     });
+    $("#btnCloseReservation").on("click",function(){
+        $("#registReservation").hide();
+        $("#mask").hide();
+    })
 }
 
 
@@ -308,15 +312,24 @@ var reservation = {
                     "&name=" + registName +
                     "&number=" + phone +
                     "&action=insertMt";
-
-        $.ajax({
-            url : '/manageMeeting',
-            dataType : "json",
-            type : "post",
-            data : param,
-            success : function(){console.log("success insert");},
-            error : function(){console.log("fail insert")}
-        })
+        if($("#registName").val().length==0){
+            alert("예약자를 입력해주세요");
+        }else if($("#registPhone").val().length==0){
+            alert("내선번호를 입력해주세요");
+        }else {
+            $.ajax({
+                url: '/manageMeeting',
+                dataType: "json",
+                type: "post",
+                data: param,
+                success: function () {
+                    console.log("success insert");
+                },
+                error: function () {
+                    console.log("fail insert")
+                }
+            })
+        }
 
     },
     movePage : function(obj,$popup){
@@ -424,6 +437,8 @@ var reservation = {
     showModifyReservationDetail: function(mtId){
         var data = getRowDataById(mtId);
         $("#registReservation").show();
+        $("#mask").show();
+
         $("#registRoom").text(data.ROOMNAME);
         $("#registDate").text(data.MT_DATE);
         $("#registFromTime").text(getDisplayTimeString(data.FROM_TIME,data.TO_TIME));
