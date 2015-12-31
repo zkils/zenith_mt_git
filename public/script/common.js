@@ -57,26 +57,31 @@ function bindEvent(){
                     //remove rows data
                 }
             }
-            $.ajax({
-                url: "/manageMeeting",
-                dataType: "json",
-                type: "post",
-                data : {"mtId":mtId, "action":"cancelMt"},
-                success:function(data){
-                    $("#modifyReservation").hide(); //TO-DO error..
-                },
-                error: function(status,data){
-                    $("#modifyReservation").hide();
-                    console.log("fail cancel reservation");
-                    deleteRowData($("#mtId").val());
-                    reservation.reset();
-                    reservation.drawReservation();
-                }
-            })
+                $.ajax({
+                    url: "/manageMeeting",
+                    dataType: "json",
+                    type: "post",
+                    data : {"mtId":mtId, "action":"cancelMt"},
+                    success:function(data){
+                        $("#modifyReservation").hide(); //TO-DO error..
+                        reservation.refreshReservationData();
+                    },
+                    error: function(status,data){
+                        $("#modifyReservation").hide();
+                        console.log("fail cancel reservation");
+                        alert("예약을 취소하지 못했습니다. ");
+                    }
+                })
         }
 
 
-    })
+    });
+
+    $("#btnModifyReservation").on('click',function(){
+        var mtId = $("#mtId").val();
+        reservation.showModifyReservationDetail(mtId);
+        $("#modifyReservation").hide();
+    });
 
 
     $("#btnLogout").on("click", function(){
@@ -217,7 +222,80 @@ var reservation = {
         $("#mtId").val(reserveData.ID);
 
         reservation.movePage($timecell, $popup);
+    },
+    showModifyReservationDetail: function(mtId){
+        var data = getRowDataById(mtId);
+        $("#registReservation").show();
+        $("#registRoom").text(data.ROOMNAME);
+        $("#registDate").text(data.MT_DATE);
+        $("#registFromTime").text(getDisplayTimeString(data.FROM_TIME,data.TO_TIME));
+        $("#modifyNoticeMsg").show().text("회의 시간을 수정하시려면 예약 취소후 다시 등록하여 주시기 바랍니다.");
+        $("#registToTime").hide();
+        $("#registUserName").text(data.USERNAME);
+        $("#registName").val(data.NAME);
+        $("#registPhone").val(data.PHONE);
+
+        $("#btnRegistReservation").off('click').on('click',function(){
+            if($("#registName").val().length==0){
+                alert("예약자를 입력해주세요");
+            }else if($("#registPhone").val().length==0){
+                alert("내선번호를 입력해주세요");
+            }else{
+                $.ajax({
+                    url: "/manageMeeting",
+                    dataType: "json",
+                    type: "post",
+                    data : {"mtId":mtId, "action":"updateMt", "name": $("#registName").val() , "phone": $("#registPhone").val()},
+                    success:function(data){
+                        $("#registReservation").hide(); //TO-DO error..
+                    },
+                    error: function(status,data){
+                        $("#registReservation").hide();
+                        console.log("fail cancel reservation");
+                        //updateRowData($("#mtId").val());
+                        reservation.refreshReservationData();
+                        //reservation.reset();
+                        //reservation.drawReservation();
+                    }
+                })
+            }
+
+        });
+    },
+    refreshReservationData : function(){
+        var date = $("#txtDate").val();
+        if(date.length==0){
+            date = getToDay();
+        }
+        $.ajax({
+            url: "/main",
+            dataType: "json",
+            type: "post",
+            data:{"date":date},
+            success:function(data){
+                console.log("refresh success!!");
+                rows=data.rData;
+                reservation.reset();
+                reservation.drawReservation();
+            },
+            error: function(rData){
+                console.log("refresh fail!!");
+                rows=data.rData;
+                reservation.reset();
+                reservation.drawReservation();
+            }
+        })
+
     }
+};
+
+
+function getRowDataById(mtId){
+    for(var i= 0 ; i < rows.length ; i++){
+        if(mtId==rows[i].ID ){
+               return rows[i];
+        }
+    };
 };
 
 function getRowData($timecell){

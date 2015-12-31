@@ -27,9 +27,9 @@ router.post('/', function(req,res){
             break;
         case "updateMt" :
                 updateMeeting(req,res,{
-                    mtid:req.body.mtid,
+                    mtId:req.body.mtId,
                     name:req.body.name,
-                    number:req.body.number
+                    phone:req.body.phone
                 });
             break;
         case "cancelMt" :
@@ -65,9 +65,9 @@ function insertMeeting(req, res, data){
 };
 
 function updateMeeting(req,res,data){
-    console.log(data);
+
     var sqlString = 'UPDATE MT_SCHEDULE SET NAME = ? , PHONE = ? WHERE ID = ?';
-    var inserts = [data.name,data.number,data.mtid];
+    var inserts = [data.name,data.phone,data.mtId];
     var sql = mysql.format(sqlString, inserts);
     console.log(sql);
 
@@ -97,7 +97,7 @@ function cancelMeeting(req,res,mtId){
             }
             connection.release();
             console.log("Server - Delete success");
-            res.status(200).send();
+            res.status(200).send({success:"delete success"});
             //res.redirect("/main");
         });
 

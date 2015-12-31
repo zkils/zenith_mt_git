@@ -11,7 +11,13 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
-    getSchedule(res,req,req.body.selectedDate);
+    var date;
+    if(req.body.date){
+        date = req.body.date;
+    }else{
+        date = req.body.selectedDate;
+    }
+    getSchedule(res,req,date);
     //res.render('main', { title: '회의실 예약 관리 시스템',username: req.session.username, userid: req.session.userid  });
 });
 
