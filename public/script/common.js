@@ -298,18 +298,18 @@ var reservation = {
     },
     insert : function(){
         var room = $("#registRoom").text(),
-            date = $("#registDate").text().replace(/-/gi, ''),
+            date = $("#registDate").text().replace,
             fromTime = $("#registFromTime").text().replace(' ~ ', '').replace(':',''),
             toTime = $("#registToTime option:selected").text().replace(':', ''),
             userName = $("#registUserName").text(),
-            registName = $("#registName").text(),
-            phone = $("#registPhone").text(),
+            registName = $("#registName").val(),
+            phone = $("#registPhone").val(),
             param = "day=" + date +
                     "&fromtime=" + fromTime +
                     "&totime=" + toTime +
-                    "&rooid=" + room +
+                    "&roomid=" + room +
                     "&userid=" + userName +
-                    "&name=" + name +
+                    "&name=" + registName +
                     "&number=" + phone +
                     "&action=insertMt";
         if($("#registName").val().length==0){
