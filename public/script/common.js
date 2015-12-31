@@ -6,6 +6,12 @@ function init(){
         bindEvent();
     }else{
         $(document.body).removeClass("main");
+        $(document).keypress(function(e) {
+            if(e.which == 13) {
+                checklogin();
+            }
+        });
+
     }
 
 
@@ -43,26 +49,35 @@ function bindEvent(){
         $("#modifyReservation").hide();
     })
     $("#btnDeleteReservation").on("click",function(){
-
-
         var mtId = $("#mtId").val();
         var answer = confirm("회의룸 예약을 취소하시겠습니까?");
         if(answer){
+            for(var i = 0 ; i< rows.length;i++){
+                if(rows[i].ID==mtId){
+                    //remove rows data
+                }
+            }
             $.ajax({
                 url: "/manageMeeting",
                 dataType: "json",
                 type: "post",
                 data : {"mtId":mtId, "action":"cancelMt"},
                 success:function(data){
-                    $("#modifyReservation").hide();
-
+                    $("#modifyReservation").hide(); //TO-DO error..
                 },
-                error: function(){console.log("fail cancel reservation");}
+                error: function(status,data){
+                    $("#modifyReservation").hide();
+                    console.log("fail cancel reservation");
+                    deleteRowData($("#mtId").val());
+                    reservation.reset();
+                    reservation.drawReservation();
+                }
             })
         }
 
 
     })
+
 
     $("#btnLogout").on("click", function(){
         userInfo = null;
@@ -210,12 +225,23 @@ function getRowData($timecell){
     var fromTimeString = getTimeString(timeIndex); // form date
     var roomId = getRoomId($timecell);
     for(var i= 0 ; i < rows.length ; i++){
-      if(roomId==rows[i].ROOM_ID && fromTimeString==rows[i].FROM_TIME){
-          console.log("----reservation date matched----");
-          return rows[i];
+      if(roomId==rows[i].ROOM_ID ){
+          var fromTimeInt = parseInt(fromTimeString);
+          if(fromTimeString==rows[i].FROM_TIME || ( parseInt(rows[i].FROM_TIME) <= fromTimeInt && fromTimeInt <= parseInt(rows[i].TO_TIME)) ){
+              parseInt(fromTimeString)
+              return rows[i];
 
-          break;
+          }
       }
+    };
+};
+
+function deleteRowData(mtId){
+    for(var i= 0 ; i < rows.length ; i++){
+        if(mtId==rows[i].ID){
+            rows.splice(i, 1);
+            break;
+        }
     };
 
 };
