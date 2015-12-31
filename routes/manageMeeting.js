@@ -37,7 +37,7 @@ router.post('/', function(req,res){
             break;
 
     }
-    res.redirect('back');
+    //res.redirect('back');
 
 
 });
@@ -57,6 +57,7 @@ function insertMeeting(req, res, data){
             }
             connection.release();
             //res.redirect("/main");
+            res.status(200).send();
         });
 
     });
@@ -77,6 +78,7 @@ function updateMeeting(req,res,data){
                 throw err;
             }
             connection.release();
+            res.status(200).send();
             //res.redirect("/main");
         });
 
@@ -91,12 +93,11 @@ function cancelMeeting(req,res,mtId){
         var query = connection.query(sqlString, function (err, rows) {
             if(err){
                 connection.release();
-
                 throw err;
             }
             connection.release();
             console.log("Server - Delete success");
-
+            res.status(200).send();
             //res.redirect("/main");
         });
 

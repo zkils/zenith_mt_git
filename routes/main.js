@@ -30,6 +30,8 @@ function getSchedule(res,req,date){
     if(date==null){
         date = getToDay();
         isToday=true;
+    }else{
+        isToday=false;
     }
     //TO-DO 쿼리 조인해서 user name / team name 가져올 것
     var sqlString ='SELECT MT_SCHEDULE.ID,MT_DATE,FROM_TIME,TO_TIME,ROOM_ID,USER_ID,MT_SCHEDULE.NAME,PHONE,USER.NAME as USERNAME,ROOM.NAME as ROOMNAME,DATE_FORMAT(MT_SCHEDULE.INSERT_DATE,"%Y-%m-%d %r") as INSERT_DATE FROM MT_SCHEDULE , ROOM , USER WHERE MT_DATE ="'+date+'" and MT_SCHEDULE.ROOM_ID = ROOM.ID and MT_SCHEDULE.USER_ID = USER.ID';
