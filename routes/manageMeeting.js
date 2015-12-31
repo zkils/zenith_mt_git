@@ -43,7 +43,7 @@ router.post('/', function(req,res){
 });
 
 function insertMeeting(req, res, data){
-    console.log(data);
+
     var sqlString = 'INSERT INTO MT_SCHEDULE (MT_DATE, FROM_TIME, TO_TIME, ROOM_ID, USER_ID, NAME, PHONE) values ( ? , ? , ? , ? , ? , ? , ? )';
     var inserts = [data.day,data.fromtime, data.totime, data.roomid,data.userid,data.name,data.number];
     var sql = mysql.format(sqlString, inserts);
@@ -57,7 +57,7 @@ function insertMeeting(req, res, data){
             }
             connection.release();
             //res.redirect("/main");
-            res.status(200).send();
+            res.status(200).send({success:"insert success"});
         });
 
     });
@@ -78,7 +78,7 @@ function updateMeeting(req,res,data){
                 throw err;
             }
             connection.release();
-            res.status(200).send();
+            res.status(200).send({success:"update success"});
             //res.redirect("/main");
         });
 

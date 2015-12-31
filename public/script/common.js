@@ -253,7 +253,7 @@ var reservation = {
         }
     },
     init : function(){
-        this.data.binding();
+        //this.data.binding();
         $(".reservation td > a").on("click",function(){
             reservation.makeReservation($(this));
             //reservation.movePage($(this));
@@ -269,14 +269,14 @@ var reservation = {
         $(".reserved-mine").each(function(){
             $(this).removeClass("reserved-mine");
             $(this).children('a').off('click').on("click",function(){
-                reservation.makeReservation($(this).parent());
+                reservation.makeReservation($(this));
                 //reservation.movePage($(this));
             });
         });
         $(".reserved-other").each(function(){
             $(this).removeClass("reserved-other");
             $(this).children('a').off('click').on("click",function(){
-                reservation.makeReservation($(this).parent());
+                reservation.makeReservation($(this));
                 //reservation.movePage($(this));
             });
         });
@@ -324,9 +324,18 @@ var reservation = {
                 data: param,
                 success: function () {
                     console.log("success insert");
+                    $("#registReservation").hide();
+                    $("#mask").hide();
+                    reservation.refreshReservationData();
+                    $("#registName").val("");
+                    $("#registPhone").val("");
+
                 },
                 error: function () {
                     console.log("fail insert")
+                    reservation.refreshReservationData();
+                    $("#registReservation").hide();
+                    $("#mask").hide();
                 }
             })
         }
@@ -338,13 +347,6 @@ var reservation = {
 
         //To-do 화면 크기와 항목 위치에 따라 포지션 변경되어야 함
 
-        // open registReservation
-        //$("#mask").show();
-        //$("#registReservation").show();
-
-        // open modifyReservation
-        //$("#btnModify").hide();
-        //$("#btnDelete").hide();
         $popup.css({top : _offset.top + 8, left : _offset.left + 8}).show();
 
     },
@@ -379,25 +381,50 @@ var reservation = {
     },
     makeReservation : function($timecell){
         var parentNode = $timecell.parents('td');
-            room = getRoomId(parentNode),
-            timeId = parseInt(parentNode[0].className.match(/time../)[0].substr(-2)) - 1,
-            fromTime = this.data.ROOM[room].time[timeId].FROM,
-            toTime = this.data.getToTime(room, timeId),
-            strOption = '';
+        var room = getRoomId(parentNode);
+        var timeId = parentNode.index()-1;
+        var fromTimeStr = getTimeString(timeId);
+        var toTimeId = checkAvaibleToTime(parentNode);
+        var strOption = '';
 
-            for(var i = 0; i < toTime.length; i++){
-                if(i == 0){
-                    strOption = "<option selected>" + toTime[i] + "</option>"
-                }
-                strOption += "<option>" + toTime[i] + "</option>"
+        var fromTimeInt = parseInt(fromTimeStr);
+        if( (timeId+1) ==  toTimeId){
+            strOption = "<option selected>" +getTimeString(toTimeId,true) + "</option>";
+        }else{
+            for(var i = timeId+1 ; i < toTimeId+1 ; i++){
+                strOption += "<option>" + getTimeString(i,true) + "</option>";
             }
+        }
 
+
+            //timeId = parseInt(parentNode[0].className.match(/time../)[0].substr(-2)) - 1,
+            //fromTime = this.data.ROOM[room].time[timeId].FROM,
+            //toTime = this.data.getToTime(room, timeId),
+            //strOption = '';
+            //
+            //for(var i = 0; i < toTime.length; i++){
+            //    if(i == 0){
+            //        strOption = "<option selected>" + toTime[i] + "</option>"
+            //    }
+            //    strOption += "<option>" + toTime[i] + "</option>"
+            //}
+
+        if($("#txtDate").val().length==0){
+            date=getToDay();
+        }else{
+            date=$("#txtDate").val();
+        }
 
         $("#registRoom").text(room);
-        $("#registDate").text(getToDay());
-        $("#registFromTime").text(fromTime + " ~ ");
+        $("#registDate").text(date);
+        $("#registFromTime").text(fromTimeStr.substr(0,2)+":"+fromTimeStr.substr(2,4) + " ~ ");
+        $("#registToTime").children().remove();
         $("#registToTime").append(strOption);
+        $("#registToTime option:eq(0)").attr("selected", "selected");
 
+        $("#modifyNoticeMsg").hide();
+        $("#registToTime").show();
+        $("#btnRegistReservation").off("click").on("click", reservation.insert);
 
         $("#registReservation").show();
         $("#mask").show();
@@ -461,11 +488,17 @@ var reservation = {
                     data : {"mtId":mtId, "action":"updateMt", "name": $("#registName").val() , "phone": $("#registPhone").val()},
                     success:function(data){
                         $("#registReservation").hide(); //TO-DO error..
+                        $("#mask").hide();
+                        clearRegistReservationForm();
+
+                        reservation.refreshReservationData();
                     },
                     error: function(status,data){
                         $("#registReservation").hide();
+                        $("#mask").hide();
                         console.log("fail cancel reservation");
                         //updateRowData($("#mtId").val());
+                        clearRegistReservationForm();
                         reservation.refreshReservationData();
                         //reservation.reset();
                         //reservation.drawReservation();
@@ -490,18 +523,43 @@ var reservation = {
                 rows=data.rData;
                 reservation.reset();
                 reservation.drawReservation();
+                //reservation.binding();
             },
             error: function(rData){
                 console.log("refresh fail!!");
                 rows=data.rData;
                 reservation.reset();
                 reservation.drawReservation();
+                //reservation.binding();
             }
         })
 
     }
 };
 
+function checkAvaibleToTime($timecell){
+    var toTimeId, $tmpNode=$timecell.next();
+
+    while($tmpNode.length!=0){
+        if($tmpNode.hasClass("reserved-mine") || $tmpNode.hasClass("reserved-other")  ){
+            toTimeId =  $tmpNode.index()-1;
+            break;
+        }else if($tmpNode.index()==24){
+            toTimeId = 24;
+            break;
+
+        }else{
+            $tmpNode = $tmpNode.next();
+        }
+    }
+    return toTimeId;
+
+};
+
+function clearRegistReservationForm(){
+    $("#registName").val("");
+    $("#registPhone").val("");
+};
 
 function getRowDataById(mtId){
     for(var i= 0 ; i < rows.length ; i++){
@@ -518,8 +576,8 @@ function getRowData($timecell){
     for(var i= 0 ; i < rows.length ; i++){
       if(roomId==rows[i].ROOM_ID ){
           var fromTimeInt = parseInt(fromTimeString);
-          if(fromTimeString==rows[i].FROM_TIME || ( parseInt(rows[i].FROM_TIME) <= fromTimeInt && fromTimeInt <= parseInt(rows[i].TO_TIME)) ){
-              parseInt(fromTimeString)
+          //if(fromTimeString==rows[i].FROM_TIME || ( parseInt(rows[i].FROM_TIME) <= fromTimeInt && fromTimeInt <= parseInt(rows[i].TO_TIME)) ){
+          if(fromTimeString==rows[i].FROM_TIME || ( parseInt(rows[i].FROM_TIME) <= fromTimeInt && fromTimeInt < parseInt(rows[i].TO_TIME)) ){
               return rows[i];
 
           }
@@ -559,11 +617,18 @@ function getRoomId($timecell){  //gkem
 
 };
 
-function getTimeString(timeIndex){
+
+
+function getTimeString(timeIndex,flag){
     var str,isEven=false;
     if(timeIndex%2==0) isEven=true;
 
-    str = Math.floor((timeIndex/2+9)).toString() + ((isEven)? '00' : '30' );
+    if(flag){
+        str = Math.floor((timeIndex/2+9)).toString() +":"+ ((isEven)? '00' : '30' );
+    }else{
+        str = Math.floor((timeIndex/2+9)).toString() + ((isEven)? '00' : '30' );
+    }
+
     (str.length==3) ? str= '0'+str : str;
 
     return str;
@@ -679,7 +744,8 @@ var user = {
 
         return true;
     }
-}
+};
+
 var calendar = {
     date : {select : '', current : ''},
     setCurrentDate : function(){
