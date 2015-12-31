@@ -25,7 +25,7 @@ router.post('/', function(req,res){
     });
   }else{
     console.log("pwd unmatched");
-    res.send();
+    res.send({"fail":"Wrong Password"});
   }
 
 

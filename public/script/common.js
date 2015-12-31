@@ -40,6 +40,12 @@ function bindEvent(){
     $("#btnOkReservation").on("click",function(){
         $("#modifyReservation").hide();
     })
+
+    $("#btnLogout").on("click", function(){
+        userInfo = null;
+        rows = null;
+        window.location = "/";
+    });
 }
 
 
@@ -264,7 +270,7 @@ var user = {
     hide : function(){
         $("#modifyUser").hide();
         $("#mask").hide();
-        this.resetData();
+        user.resetData();
     },
     update : function(){
         user.getData();
@@ -282,7 +288,11 @@ var user = {
             type: "post",
             data : param,
             success:function(){console.log("user update success!!");},
-            error: function(){console.log("user update fail!!");}
+            error: function(){
+                console.log("user update fail!!");
+                $("#user_errMsg").text("[기존 비밀번호]가 잘못되었습니다. 다시 입력해주십시오.");
+
+            }
         })
     },
     getData : function(){
@@ -299,11 +309,16 @@ var user = {
         $("#old_password").val(this.data.oldPassword);
         $("#new_password1").val(this.data.newPassword1);
         $("#new_password2").val(this.data.newPassword2);
+
+        $("#new_username").val(userInfo.username);
+
+        $("#user_errMsg").text("");
+
     },
     checkValue : function(){
         var msg = '';
         if(common.isEmpty(this.data.oldPassword)){
-            msg = '[기존 비밀번호]를 등록하여 주십시오.';
+            msg = '[기존 비밀번호]를 입력하여 주십시오.';
             $("#user_errMsg").text(msg);
             return false;
         }
