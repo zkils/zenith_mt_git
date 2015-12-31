@@ -294,7 +294,7 @@ var reservation = {
     },
     insert : function(){
         var room = $("#registRoom").text(),
-            date = $("#registDate").text().replace,
+            date = $("#registDate").text(),
             fromTime = $("#registFromTime").text().replace(' ~ ', '').replace(':',''),
             toTime = $("#registToTime option:selected").text().replace(':', ''),
             userName = $("#registUserName").text(),
