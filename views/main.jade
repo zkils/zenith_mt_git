@@ -270,25 +270,32 @@ block content
                     th(scope="row")
                         span 회의실
                     td
+                        span#registRoom
                 tr
                     th(scope="row")
                         span 회의일자
                     td
+                        span#registDate
                 tr
                     th(scope="row")
                         span 회의시간
                     td
+                        span#registFromTime
+                        select#registToTime
                 tr
                     th(scope="row")
                         span 예약팀
                     td
+                        span#registUserName #{session.username}
                 tr
                     th(scope="row")
                         span 예약자
                     td
+                        input#registName(type="text")
                 tr
                     th(scope="row") 내선번호
                     td
+                        input#registPhone(type="text")
         .btnGroup
             input#btnRegistReservation(type="button")
             input#btnCloseReservation(type="button")
