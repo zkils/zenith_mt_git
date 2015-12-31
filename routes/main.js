@@ -11,7 +11,6 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
-
     getSchedule(res,req,req.body.selectedDate);
     //res.render('main', { title: '회의실 예약 관리 시스템',username: req.session.username, userid: req.session.userid  });
 });
@@ -35,7 +34,7 @@ function getSchedule(res,req,date){
     //TO-DO 쿼리 조인해서 user name / team name 가져올 것
     var sqlString ='SELECT MT_SCHEDULE.ID,MT_DATE,FROM_TIME,TO_TIME,ROOM_ID,USER_ID,MT_SCHEDULE.NAME,PHONE,USER.NAME as USERNAME,ROOM.NAME as ROOMNAME,DATE_FORMAT(MT_SCHEDULE.INSERT_DATE,"%Y-%m-%d %r") as INSERT_DATE FROM MT_SCHEDULE , ROOM , USER WHERE MT_DATE ="'+date+'" and MT_SCHEDULE.ROOM_ID = ROOM.ID and MT_SCHEDULE.USER_ID = USER.ID';
     //var sqlString = 'SELECT ID,MT_DATE,FROM_TIME,TO_TIME,ROOM_ID,USER_ID,NAME,PHONE,DATE_FORMAT(INSERT_DATE,"%Y-%m-%d %T") as INSERT_DATE FROM MT_SCHEDULE WHERE MT_DATE ="'+date+'"';
-    console.log(sqlString);
+    //console.log(sqlString);
     dbconn.pool.getConnection(function(err,connection){
         var query = connection.query(sqlString, function (err, rows) {
             if(err){
@@ -59,14 +58,15 @@ function getSchedule(res,req,date){
                 });
 
             }
-            console.log(sqlString);
-            console.log(rows);
+
+            //console.log(rows);
             connection.release();
         });
 
     });
 
 };
+
 
 
 

@@ -15,6 +15,8 @@ function bindEvent(){
 
     // 날짜지정 관련
     $("#btnDate").on("click",function(){
+        if($("#txtDate").val().length==0) return;
+
         $.ajax({
             url: "/main",
             dataType: "json",
@@ -40,6 +42,27 @@ function bindEvent(){
     $("#btnOkReservation").on("click",function(){
         $("#modifyReservation").hide();
     })
+    $("#btnDeleteReservation").on("click",function(){
+
+
+        var mtId = $("#mtId").val();
+        var answer = confirm("회의룸 예약을 취소하시겠습니까?");
+        if(answer){
+            $.ajax({
+                url: "/manageMeeting",
+                dataType: "json",
+                type: "post",
+                data : {"mtId":mtId, "action":"cancelMt"},
+                success:function(data){
+                    $("#modifyReservation").hide();
+
+                },
+                error: function(){console.log("fail cancel reservation");}
+            })
+        }
+
+
+    })
 
     $("#btnLogout").on("click", function(){
         userInfo = null;
@@ -62,12 +85,9 @@ var reservation = {
             //reservation.movePage($(this));
         });
         reservation.select();
-        if($(document.body).hasClass('main')) {
-            if (rows.length != 0) {
-                reservation.drawReservation();
-            }
+        if (rows.length != 0) {
+            reservation.drawReservation();
         }
-
     },
     reset: function(){
         $(".reserved-mine").each(function(){
@@ -163,6 +183,7 @@ var reservation = {
         $("#reserved-time").text(reserveData.INSERT_DATE);
         $("#reserved-team").text(reserveData.USERNAME); // 쿼리 변경 후 user name으로 할 것
         $("#reserved-person-phone").text(reserveData.NAME +" (내선번호 : "+reserveData.PHONE+")");
+        $("#mtId").val(reserveData.ID);
 
         reservation.movePage($timecell, $popup);
     },
@@ -178,6 +199,7 @@ var reservation = {
         $("#reserved-time").text(reserveData.INSERT_DATE);
         $("#reserved-team").text(reserveData.USERNAME); // 쿼리 변경 후 user name으로 할 것
         $("#reserved-person-phone").text(reserveData.NAME +" (내선번호 : "+reserveData.PHONE+")");
+        $("#mtId").val(reserveData.ID);
 
         reservation.movePage($timecell, $popup);
     }

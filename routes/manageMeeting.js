@@ -10,7 +10,9 @@ var dbconn = require('../modules/DBconn.js');
 
 router.post('/', function(req,res){
     var action = req.body.action;
-    console.log(action);
+    var mtId = req.body.mtId;
+    console.log("-- Manage MT - action: "+ action+ "  / mtid :" + mtId );
+
     switch (action){
         case "insertMt" :
                 insertMeeting(req,res,{
@@ -31,7 +33,7 @@ router.post('/', function(req,res){
                 });
             break;
         case "cancelMt" :
-            cancelMeeting(req,res,req.body.mtid);
+            cancelMeeting(req,res,mtId);
             break;
 
     }
@@ -89,9 +91,12 @@ function cancelMeeting(req,res,mtId){
         var query = connection.query(sqlString, function (err, rows) {
             if(err){
                 connection.release();
+
                 throw err;
             }
             connection.release();
+            console.log("Server - Delete success");
+
             //res.redirect("/main");
         });
 
