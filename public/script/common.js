@@ -150,6 +150,14 @@ var reservation = {
         $("#btnModifyReservation").show();
         $("#btnDeleteReservation").show();
 
+        var reserveData = getRowData($timecell);
+        $("#reserved-room").text(reserveData.ROOMNAME);
+        $("#reserved-day").text(reserveData.MT_DATE);
+        $("#meeting-time").text(getDisplayTimeString(reserveData.FROM_TIME , reserveData.TO_TIME)); // xx:xx ~ xx: xx 로 고칠것
+        $("#reserved-time").text(reserveData.INSERT_DATE);
+        $("#reserved-team").text(reserveData.USERNAME); // 쿼리 변경 후 user name으로 할 것
+        $("#reserved-person-phone").text(reserveData.NAME +" (내선번호 : "+reserveData.PHONE+")");
+
         reservation.movePage($timecell, $popup);
     },
     showReservation : function($timecell){
@@ -170,7 +178,7 @@ var reservation = {
 };
 
 function getRowData($timecell){
-    var timeIndex = $timecell.index();
+    var timeIndex = $timecell.index()-1 ;
     var fromTimeString = getTimeString(timeIndex); // form date
     var roomId = getRoomId($timecell);
     for(var i= 0 ; i < rows.length ; i++){
@@ -210,7 +218,7 @@ function getTimeString(timeIndex){
     var str,isEven=false;
     if(timeIndex%2==0) isEven=true;
 
-    str = Math.floor((timeIndex/2+9)).toString() + ((isEven)? '30' : '00' );
+    str = Math.floor((timeIndex/2+9)).toString() + ((isEven)? '00' : '30' );
     (str.length==3) ? str= '0'+str : str;
 
     return str;
