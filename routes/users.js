@@ -19,17 +19,14 @@ router.post('/', function(req,res){
           connection.release();
           throw err;
         }
-        res.send();
         connection.release();
+        res.status(200).send({success:"delete success"});
       });
     });
   }else{
     console.log("pwd unmatched");
     res.send({"fail":"Wrong Password"});
   }
-
-
-
 
 });
 

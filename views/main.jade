@@ -9,7 +9,8 @@ block content
     .content_title
         img(src="./images/logo_small.png")
         div
-            p 사용팀 : #{session.username} &nbsp;&nbsp;/&nbsp;&nbsp;
+            p
+                span#lblUsername 사용팀 : #{session.username} &nbsp;&nbsp;/&nbsp;&nbsp;
                 a#btnUser 정보변경&nbsp;&nbsp;/&nbsp;&nbsp;
                 a#btnLogout 로그아웃
     .content_detail

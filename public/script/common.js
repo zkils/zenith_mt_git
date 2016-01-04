@@ -691,7 +691,18 @@ var user = {
             dataType: "json",
             type: "post",
             data : param,
-            success:function(){console.log("user update success!!");},
+            success:function(){
+                console.log("user update success!!");
+                $("#modifyUser").hide();
+                $("#mask").hide();
+                $("#user_errMsg").text("");
+
+                userInfo = null;
+                rows = null;
+                window.location = "/";
+
+                alert("비밀번호가 변경되었습니다. 다시 로그인해주십시오.");
+            },
             error: function(){
                 console.log("user update fail!!");
                 $("#user_errMsg").text("[기존 비밀번호]가 잘못되었습니다. 다시 입력해주십시오.");
