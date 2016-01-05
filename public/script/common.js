@@ -20,23 +20,7 @@ function init(){
 function bindEvent(){
 
     // 날짜지정 관련
-    $("#btnDate").on("click",function(){
-        if($("#txtDate").val().length==0) return;
-
-        $.ajax({
-            url: "/main",
-            dataType: "json",
-            type: "post",
-            data : "selectedDate=" + calendar.date.select,
-            success:function(data){
-                console.log("get schedule of selected date success!!");
-                rows=data.rData;
-                reservation.reset();
-            },
-            error: function(){console.log("get schedule of selected date success!!");}
-        })
-        //calendar.date.select
-    });
+    $("#btnDate").on("click",calendar.changeDate);
     $("#txtDate").on("click", function(){
         if(calendar.isExist()){
             calendar.show();
@@ -46,6 +30,8 @@ function bindEvent(){
 
     } );
     $("#btnOkReservation").on("click",function(){
+        $("#registName").val("");
+        $("#registPhone").val("");
         $("#modifyReservation").hide();
     })
     $("#btnDeleteReservation").on("click",function(){
@@ -91,6 +77,8 @@ function bindEvent(){
     });
     $("#btnCloseReservation").on("click",function(){
         $("#registReservation").hide();
+        $("#registName").val("");
+        $("#registPhone").val("");
         $("#mask").hide();
     })
 }
@@ -539,6 +527,7 @@ var reservation = {
 
 function checkAvaibleToTime($timecell){
     var toTimeId, $tmpNode=$timecell.next();
+    if($tmpNode.length==0) return 24;
 
     while($tmpNode.length!=0){
         if($tmpNode.hasClass("reserved-mine") || $tmpNode.hasClass("reserved-other")  ){
@@ -790,6 +779,23 @@ var calendar = {
         ];
         clndrInstanse.setEvents(eventArray);
     },
+    changeDate : function(){
+        if($("#txtDate").val().length==0) return;
+
+        $.ajax({
+            url: "/main",
+            dataType: "json",
+            type: "post",
+            data : "selectedDate=" + calendar.date.select,
+            success:function(data){
+                console.log("get schedule of selected date success!!");
+                rows=data.rData;
+                reservation.reset();
+            },
+            error: function(){console.log("get schedule of selected date success!!");}
+        })
+        //calendar.date.select
+    },
     init : function(){
         var cal = $('#calendar');
 
@@ -806,6 +812,7 @@ var calendar = {
                     calendar.date.select = target.date._i;
                     $("#txtDate").val(calendar.date.select);
                     calendar.setDayToCalendar(calendar.date.select);
+                    calendar.changeDate();
 
                     cal.hide();
                 }
@@ -816,7 +823,10 @@ var calendar = {
 
 function getToDay(){
     var date = new Date();
-    var today = date.getFullYear().toString()+"-"+(date.getMonth()+1).toString()+"-"+date.getDate().toString();
+    var year = date.getFullYear().toString();
+    var month = ((date.getMonth()+1)) < 10 ? "0"+(date.getMonth()+1).toString() : (date.getMonth()+1).toString() ;
+    var day = (date.getDate() <10 ) ?  "0"+date.getDate().toString() : date.getDate().toString();
+    var today = year+"-"+month+"-"+day;
     return today;
 };
 

@@ -3,10 +3,13 @@
 
   공통CSS
 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
 body {
   height : 100%;
   color : #333;
-  font: 12px "돋움", Dotum, 'AppleGothic';
+  font-size: 12px;
+  font-family: "Nanum Gothic", sans-serif;
   line-height : 16px;
 }
 .main{
@@ -45,7 +48,7 @@ div.popup{
   z-index: 12;
 }
 div.popup > .title{
-  font : 25px '나눔고딕',NanumGothic,'돋움',Dotum,helvetica,sans-serif;
+  font : 25px '나눔고딕',NanumGothic,helvetica,sans-serif;
   color : #262626;
   padding-bottom: 30px;
   line-height: 30px;
@@ -130,7 +133,7 @@ div.login_wrapper > div.login_back > div.login_input div.circle{
   -webkit-border-radius:2px;
   -moz-border-radius:2px;
   border-radius:2px;
-  margin-top : 3px;
+  margin-top : 6px;
   margin-left: -12px;
 }
 div.login_wrapper > div.login_back > div.login_input dl{
@@ -139,7 +142,7 @@ div.login_wrapper > div.login_back > div.login_input dl{
 }
 div.login_wrapper > div.login_back > div.login_input dt{
   float : left;
-  padding : 5px 0 0 15px;
+  padding : 1px 0 0 15px;
   font-weight: bold;
   width : 84px;
   color : #8d8d8d;
@@ -152,7 +155,7 @@ div.login_wrapper > div.login_back > div.login_input dd{
 div.login_wrapper > div.login_back > div.login_input dd input{
   height : 17px;
   padding : 3px 0 0 5px;
-  font : normal 9px dotum;
+  font : normal 9px "Nanum Gothic";
   border : 1px solid #cecece;
   color : #8d8d8d;
 }
@@ -191,9 +194,6 @@ div.content_title{
 div.content_title > img{
   display: inline-block;
   float: left;
-  width : 200px;
-  height : 50px;
-  margin-top: 15px;
   margin-left: 10px;
 }
 div.content_title > div{
