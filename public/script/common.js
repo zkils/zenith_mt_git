@@ -4,19 +4,18 @@ function init(){
         reservation.init();
         user.init();
         bindEvent();
+
     }else{
+
         $(document.body).removeClass("main");
         $(document).keypress(function(e) {
             if(e.which == 13) {
                 checklogin();
             }
         });
-
     }
-
-
-
 };
+
 function bindEvent(){
 
     // 날짜지정 관련
@@ -321,6 +320,7 @@ var reservation = {
                 },
                 error: function () {
                     console.log("fail insert")
+                    alert("같은 시간대에 다른 예약이 있습니다. 다른 시간을 선택하여 주십시오.");
                     reservation.refreshReservationData();
                     $("#registReservation").hide();
                     $("#mask").hide();
@@ -513,9 +513,7 @@ var reservation = {
                 reservation.drawReservation();
                 //reservation.binding();
             },
-            error: function(rData){
-                console.log("refresh fail!!");
-                rows=data.rData;
+            error: function(){
                 reservation.reset();
                 reservation.drawReservation();
                 //reservation.binding();
@@ -652,6 +650,10 @@ function getReservedTimeIndex(time){
 var user = {
     data : {},
     init : function(){
+        if(userInfo.username==null) {
+            alert("다시 로그인 해주십시오.");
+            window.location = "/";
+        }
         $("#btnUser").on("click", this.display);
         $("#btnConfirmUser").on("click", this.update);
         $("#btnOkUser").on("click", this.hide);
