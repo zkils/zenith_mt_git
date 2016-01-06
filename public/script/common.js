@@ -318,12 +318,20 @@ var reservation = {
                     $("#registPhone").val("");
 
                 },
-                error: function () {
-                    console.log("fail insert")
-                    alert("같은 시간대에 다른 예약이 있습니다. 다른 시간을 선택하여 주십시오.");
-                    reservation.refreshReservationData();
-                    $("#registReservation").hide();
-                    $("#mask").hide();
+                error: function (err) {
+                    if(err.responseJSON.fail=="101"){
+                        userInfo=null;
+                        rows = null;
+                        window.location = "/";
+                        alert("서버와의 통신이 끊어졌습니다. 다시 로그인해주십시오.");
+                    }else{
+                        alert("같은 시간대에 다른 예약이 있습니다. 다른 시간을 선택하여 주십시오.");
+                        reservation.refreshReservationData();
+                        $("#registName").val("");
+                        $("#registPhone").val("");
+                        $("#registReservation").hide();
+                        $("#mask").hide();
+                    }
                 }
             })
         }
