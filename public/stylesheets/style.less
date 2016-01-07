@@ -13,9 +13,7 @@ body {
   line-height : 16px;
 
 }
-input {
-  maxlength:15;
-}
+
 .main{
   overflow-y: scroll;
   background: url("../images/bg_wall.jpg") no-repeat 0px 80px;
@@ -27,6 +25,10 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, 
 input{
   outline: 0 none;
 }
+input[type=button]{
+   border:0;
+}
+
 .cur{
   cursor: pointer;
 }
@@ -159,7 +161,7 @@ div.login_wrapper > div.login_back > div.login_input dd{
 div.login_wrapper > div.login_back > div.login_input dd input{
   height : 17px;
   padding : 3px 0 0 5px;
-  font : normal 9px "Nanum Gothic";
+  font : normal 11px "Nanum Gothic";
   border : 1px solid #cecece;
   color : #8d8d8d;
 }
@@ -234,16 +236,16 @@ div.content_detail div.info > div.title{
   margin-bottom: 10px;
 }
 div.content_detail div.info > div.title > span:nth-child(1){
-  font: 25px bold;
+  font: 25px bold "Nanum Gothic";
   color : #333;
 }
 div.content_detail div.info > div.title > span:nth-child(2){
-  font : 15px bold;
+  font : 15px bold "Nanum Gothic";
   color : #8a8a8a;
   margin-left: 15px;
 }
 div.content_detail div.info > div.sub_title1{
-  font : 12px bold;
+  font : 12px bold "Nanum Gothic";
   color : #ff2950;
   margin-bottom: 7px;
 }
@@ -260,14 +262,14 @@ div.content_detail div.info > div.sub_title2 > span:nth-child(1){
   font-size: 5px;
 }
 div.content_detail div.info > div.sub_title2 > span:nth-child(2){
-  font : 12px bold;
+  font : 12px bold "Nanum Gothic";
   color : #333;
   margin-left: 10px;
 }
 div.content_detail div.info > div.msg{
   white-space: pre-line;
   color : #878787;
-  font:12px bold;
+  font:12px bold "Nanum Gothic";
   line-height: 18px;
   margin-left: 22px;
 }
@@ -318,7 +320,7 @@ div.content_detail > div.reservation table td{
   border: 1px solid #e4e5e7;
 }
 div.content_detail > div.reservation table th{
-  font-family: Tahoma;
+  font-family: "Nanum Gothic", sans-serif;
   font-size : 11px;
   border-bottom: none;
   font-weight: normal;
@@ -346,7 +348,7 @@ div.content_detail > div.reservation table td{
   height : 30px;
 }
 div.content_detail > div.reservation table td:nth-child(1){
-  font: 15px bold;
+  font: 15px bold "Nanum Gothic";
   color: white;
 }
 div.content_detail > div.reservation table td.room01{
@@ -464,7 +466,7 @@ div#modifyUser > table tr td{
 div#modifyUser > table tr td input{
   height: 17px;
   padding: 3px 0px 0px 5px;
-  font : normal 9px/normal dotum;
+  font : normal 11px/normal "Nanum Gothic";
   border: 1px solid #cecece;
   color : #8d8d8d;
 }
