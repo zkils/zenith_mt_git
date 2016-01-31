@@ -11,7 +11,6 @@ router.post('/', function(req,res){
   var inserts = [userInfo.new_password, 'Lion', userInfo.new_name, userInfo.id];
   var sql = mysql.format(sqlString, inserts);
 
-  // Lion@1234
   if (userInfo.org_password==req.session.password){
     dbconn.pool.getConnection(function(err,connection){
       var query = connection.query(sql, function (err, rows) {

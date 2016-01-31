@@ -1,6 +1,3 @@
-/**
- * Created by 종원 on 2015-12-27.
- */
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
@@ -12,7 +9,6 @@ var dbconn = require('../modules/DBconn.js');
 router.post('/', function(req,res){
     var action = req.body.action;
     var mtId = req.body.mtId;
-    console.log("-- Manage MT - action: "+ action+ "  / mtid :" + mtId );
 
     switch (action){
         case "insertMt" :
@@ -38,9 +34,6 @@ router.post('/', function(req,res){
             break;
 
     }
-    //res.redirect('back');
-
-
 });
 
 function insertMeeting(req, res, data){
@@ -57,7 +50,6 @@ function insertMeeting(req, res, data){
     inserts = [data.day,data.roomid];
     var selectSql = mysql.format(sqlString, inserts);
 
-    //console.log(insertSql +"\n" + selectSql+"\n" );
     async.waterfall([
         function(callback){
             var results;
@@ -73,8 +65,6 @@ function insertMeeting(req, res, data){
                 });
 
             });
-            //callback(null, results);
-
         },
         function(results,callback){
             var isAble = true;
@@ -82,7 +72,6 @@ function insertMeeting(req, res, data){
             var resultsFromTime, resultsToTime;
 
             if(results){
-                console.log("---check previous meeting schedule----");
                 for( var i = 0 ; i < results.length ; i++){
                     resultsFromTime = parseInt(results[i].FROM_TIME);
                     resultsToTime = parseInt(results[i].TO_TIME);
@@ -125,22 +114,6 @@ function insertMeeting(req, res, data){
 
         }
     );
-
-/*
-    dbconn.pool.getConnection(function(err,connection){
-        var query = connection.query(insertSql, function (err ) {
-            if(err){
-                connection.release();
-                throw err;
-            }
-            connection.release();
-            //res.redirect("/main");
-            res.status(200).send({success:"insert success"});
-        });
-
-    });
-    */
-
 };
 
 function updateMeeting(req,res,data){
@@ -148,7 +121,6 @@ function updateMeeting(req,res,data){
     var sqlString = 'UPDATE MT_SCHEDULE SET NAME = ? , PHONE = ? WHERE ID = ?';
     var inserts = [data.name,data.phone,data.mtId];
     var sql = mysql.format(sqlString, inserts);
-    console.log(sql);
 
     dbconn.pool.getConnection(function(err,connection){
         var query = connection.query(sql, function (err, rows) {
@@ -158,7 +130,6 @@ function updateMeeting(req,res,data){
             }
             connection.release();
             res.status(200).send({success:"update success"});
-            //res.redirect("/main");
         });
 
     });
@@ -166,7 +137,6 @@ function updateMeeting(req,res,data){
 };
 function cancelMeeting(req,res,mtId){
     var sqlString = 'DELETE FROM MT_SCHEDULE WHERE ID='+mtId;
-    console.log(sqlString);
 
     dbconn.pool.getConnection(function(err,connection){
         var query = connection.query(sqlString, function (err, rows) {
@@ -177,12 +147,10 @@ function cancelMeeting(req,res,mtId){
             connection.release();
             console.log("Server - Delete success");
             res.status(200).send({success:"delete success"});
-            //res.redirect("/main");
         });
 
     });
 };
-
 
 
 module.exports = router;

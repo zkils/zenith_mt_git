@@ -33,7 +33,6 @@ router.post('/', function(req,res){
             req.session.userid = userInfo.id;
             req.session.username = rows[0].name;
             req.session.password = userInfo.password;
-            //res.redirect("/main?username="+rows[0].name+"&userid="+userInfo.id);
             res.send(rows[0]);
 
           } else {
