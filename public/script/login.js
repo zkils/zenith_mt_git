@@ -31,17 +31,10 @@ function checklogin(){
     })
 
 };
+
 function successLogin(data, res){
-    //user.data = data;
     window.location = "/main";
-    console.log("success Login");
 };
 function failLogin(){
     $("#login_errMsg").text("로그인 정보를 확인하여 주십시오.").show();
-};
-
-
-
-function resetPassword(){
-    document.resetpassword.submit();
 };
