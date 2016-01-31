@@ -16,14 +16,14 @@ block content
                dt ID
                 .circle
                dd
-                input#txtId(type="text", name="userId")
+                input#txtId(type="text", name="userId", tabindex='1')
              dl
                dt PASSWORD
                 .circle
                dd
-                 input#txtPassword(type="password", name="userPassword")
+                 input#txtPassword(type="password", name="userPassword", tabindex='2')
             span
-              a.btn_login(onclick="checklogin()")
+              a.btn_login(onclick="checklogin()", tabindex='3')
             span#login_errMsg
 
 

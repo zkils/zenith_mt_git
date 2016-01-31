@@ -1,6 +1,3 @@
-//
-   Created by 혜미 on 2015-12-27.
-
 extends layout
 
 
@@ -383,10 +380,8 @@ block content
         </div>
         <div class="clndr-today-button">Today</div>
 
-    input#hssession(type="hidden" value="#{session.userinfo}")
-
     script(type="text/javascript").
-        var rows = !{JSON.stringify(rData)}
-        var userInfo = !{JSON.stringify(userInfo)}
+        reservation.data = !{JSON.stringify(rData)};
+        user.info = !{JSON.stringify(userInfo)}
 
     p
